@@ -15,10 +15,75 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
   <body>
-    <header></header>
-    <main role="main"></main>
+    <header>
+      <nav class="container header-container active">
+        <div class="logo">Hello Books.</div>
+        <div class="header-btn">
+          <div class="logout-container">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+          <div class="btns">
+            <button class="logout-btn">로그아웃</button>
+          </div>
+        </div>
+      </nav>
+      <nav class="navigation">
+        <div class="nav-items">
+          <div class="dark-mode">🌑</div>
+          <div class="top-scroll">⇧</div>
+        </div>
+      </nav>
+    </header>
 
-    <footer class="footer"></footer>
+    <main role="main">
+      <div class="container">
+        <ul class="main-container title-container">
+          <li class="title">Book list</li>
+          <li class="sub-title">This is a project made up of JavaScript.</li>
+          <li class="add-btn">
+            <button>책 추가하기</button>
+          </li>
+        </ul>
+        <ul class="main-container books-container">
+          <li class="book">
+            <div class="book-title">모던 자바</div>
+            <div class="book-items">
+              <span class="book-btn">
+                <button>보기</button>
+                <button>삭제</button>
+              </span>
+              <span class="book-date">2019.8.29 오후 12:16:11</span>
+            </div>
+          </li>
+          <li class="book">
+            <div class="book-title">모던 자바</div>
+            <div class="book-items">
+              <span class="book-btn">
+                <button>보기</button>
+                <button>삭제</button>
+              </span>
+              <span class="book-date">2019.8.29 오후 12:16:11</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div class="footer-text">
+          Github:
+          <a
+            class="tag"
+            href="https://github.com/woo1038/Vanilla_JS_Books"
+            target="_blank"
+            >Vanilla_JS_Books</a
+          >
+        </div>
+      </div>
+    </footer>
 
     <script src="js/index.js"></script>
   </body>
