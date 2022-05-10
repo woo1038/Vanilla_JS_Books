@@ -1,6 +1,4 @@
-const getToken = () => {
-  return localStorage.getItem("token");
-};
+import { postApi } from "./api.js";
 
 const login = async (e) => {
   e.preventDefault();
@@ -9,18 +7,7 @@ const login = async (e) => {
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
 
-  const res = await fetch("https://api.marktube.tv/v1/me", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  }).then((res) => {
-    return res.json();
-  });
+  const res = await postApi("https://api.marktube.tv/v1/me", email, password);
 
   const { error } = res;
   if (error) {

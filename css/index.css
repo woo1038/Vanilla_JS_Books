@@ -146,7 +146,7 @@ header {
 
 /* main */
 main {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 125px);
 }
 .main-container {
   padding: 50px 20px;
@@ -201,6 +201,7 @@ main {
   padding: 10px;
 }
 .books-container .book-title {
+  min-height: 24px;
   margin-bottom: 10px;
 }
 .books-container .book-items {
@@ -235,8 +236,6 @@ main {
   align-items: center;
   background: #ffffff9e;
   box-shadow: 0px 0px 7px 0px rgb(107 107 107);
-  top: calc(100% - 70px);
-  position: absolute;
   height: 70px;
   width: 100%;
 }
