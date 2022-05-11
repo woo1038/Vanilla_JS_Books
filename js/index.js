@@ -1,4 +1,5 @@
 import { getApi, deleteApi } from "./api.js";
+import { goTop } from "./common.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -43,6 +44,22 @@ const toggleBtn = async (flag) => {
   toggleBtn.addEventListener("click", toggle);
 };
 
+const addBooks = async () => {
+  const addBtn = document.querySelector(".add-btn");
+  addBtn.addEventListener("click", () => {
+    location.assign("/add");
+  });
+};
+
+const deleteBook = async (bookId) => {
+  const token = getToken();
+  if (!token) {
+    return location.assign("/login");
+  }
+
+  deleteApi(`https://api.marktube.tv/v1/book/${bookId}`, token);
+};
+
 const getBooks = async () => {
   const token = getToken();
   return await getApi("https://api.marktube.tv/v1/book", token);
@@ -60,8 +77,12 @@ const render = async (books) => {
     <div class="book-title">${item.title}</div>
     <div class="book-items">
       <span class="book-btn">
-        <button>보기</button>
-        <button>삭제</button>
+        <a href="/book?=${item.bookId}">
+          <button class="btn view-btn">보기</button>
+        </a>
+        <button class="btn delete-btn" data-book-id="${
+          item.bookId
+        }">삭제</button>
       </span>
       <span class="book-date">${item.createdAt
         .slice(0, 10)
@@ -72,6 +93,57 @@ const render = async (books) => {
   </li>`
     );
   });
+
+  document.querySelectorAll(".delete-btn").forEach((element) => {
+    element.addEventListener("click", async (e) => {
+      const bookId = e.target.dataset.bookId;
+
+      try {
+        await deleteBook(bookId);
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+};
+
+/* common Btn */
+const arrowBtn = async () => {
+  const arrow = document.querySelector(".top-scroll");
+  const container = document.querySelector(".books-container");
+
+  goTop(container, arrow);
+};
+
+const changeMoon = (moon, mode) => {
+  let stop = 0;
+
+  const loop = () => {
+    moon.innerHTML = mode[stop];
+
+    if (stop < mode.length - 1) {
+      setTimeout(loop, 50);
+      stop++;
+    }
+  };
+  loop();
+};
+
+const moonMode = async () => {
+  const moon = document.querySelector(".moon-mode");
+  const bright = ["🌝", "🌕", "🌖", "🌗", "🌘", "🌑", "🌚"];
+  const dark = ["🌚", "🌑", "🌒", "🌓", "🌔", "🌕", "🌝"];
+
+  moon.addEventListener("click", (e) => {
+    if (e.target.classList.contains("bright")) {
+      changeMoon(moon, bright);
+      moon.classList.remove("bright");
+    } else {
+      changeMoon(moon, dark);
+      moon.classList.add("bright");
+    }
+  });
 };
 
 const main = async () => {
@@ -81,6 +153,12 @@ const main = async () => {
 
   // header 메뉴
   toggleBtn();
+
+  addBooks();
+
+  arrowBtn();
+
+  moonMode();
 
   const books = await getBooks();
   render(books);

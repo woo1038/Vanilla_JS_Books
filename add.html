@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hello Books</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="container header-container">
+        <div class="logo">Hello Books.</div>
+        <div class="header-btn">
+          <div class="logout-container">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+          <div class="btns">
+            <button class="logout-btn">로그아웃</button>
+          </div>
+        </div>
+      </nav>
+      <nav class="navigation">
+        <div class="nav-items">
+          <div class="dark-mode">🌑</div>
+          <div class="top-scroll">⇧</div>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main">
+      <div class="container">
+        <ul class="main-container title-container">
+          <li class="title">Book list</li>
+          <li class="sub-title">This is a project made up of JavaScript.</li>
+          <li>
+            <form id="login-form">
+              <input type="title" name="title" id="title" />
+              <input type="message" name="message" id="message" />
+              <input type="author" name="author" id="author" />
+              <input type="url" name="url" id="url" />
+              <button class="btn" type="submit">login</button>
+            </form>
+          </li>
+          <li>
+            <button class="btn add-btn">책 추가하기</button>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div class="footer-text">
+          Github:
+          <a
+            class="tag"
+            href="https://github.com/woo1038/Vanilla_JS_Books"
+            target="_blank"
+            >Vanilla_JS_Books</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="js/add.js"></script>
+  </body>
+</html>

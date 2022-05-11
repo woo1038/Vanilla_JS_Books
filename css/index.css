@@ -1,5 +1,7 @@
 :root {
-  --main-bg-color: #b0ea9b;
+  --main-bg-color: #d9d9d9;
+  --main-arrow-color: #909090;
+  --main-delete-color: #ea9b9b;
 }
 
 * {
@@ -13,10 +15,25 @@ body {
   background-size: cover;
   min-height: 100vh;
 }
+a {
+  text-decoration: none;
+}
 
+/* common */
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+.btn {
+  background: #ffffffc2;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  box-shadow: 0 4px 7px -4px #000;
+  transition: 0.3s;
+}
+.btn:hover {
+  background-color: var(--main-bg-color);
 }
 
 /* header */
@@ -120,8 +137,8 @@ header {
 /* nav */
 .navigation {
   position: absolute;
-  right: 50px;
-  bottom: 80px;
+  right: 100px;
+  bottom: 90px;
 }
 .navigation .nav-items {
   display: flex;
@@ -132,16 +149,36 @@ header {
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  height: 30px;
+  padding-bottom: 2px;
   border: 2px solid #000;
   background: #fffffff0;
   box-shadow: 0px 0px 7px 0px rgb(107, 107, 107);
   border-radius: 50%;
   cursor: pointer;
   z-index: 2;
+  color: var(--main-arrow-color);
 }
 .navigation .nav-items > div:hover {
   filter: brightness(0.9);
+}
+.navigation .nav-items .moon-mode {
+  transition: 0.3s;
+  text-shadow: 0px 0px 5px rgb(179, 179, 179), 0px 0px 5px rgb(179, 179, 179),
+    0px 0px 5px rgb(179, 179, 179), 0px 0px 5px rgb(179, 179, 179);
+}
+.navigation .nav-items .bright {
+  text-shadow: 0px 0px 5px rgb(255, 208, 21), 0px 0px 5px rgb(255, 208, 21),
+    0px 0px 5px rgb(255, 208, 21), 0px 0px 5px rgb(255, 208, 21);
+}
+.navigation .nav-items > div.active {
+  color: #000;
+  text-shadow: 0px 0px 5px rgb(179, 179, 179), 0px 0px 5px rgb(179, 179, 179),
+    0px 0px 5px rgb(179, 179, 179), 0px 0px 5px rgb(179, 179, 179);
+}
+.navigation .nav-items .top-scroll {
+  transform: rotate(270deg);
+  transition: 0.3s;
 }
 
 /* main */
@@ -174,26 +211,14 @@ main {
   margin-bottom: 5px;
 }
 .title-container .add-btn {
-  padding: 5px;
-  background: #ffffffc2;
-  border-radius: 5px;
-  border: 1px solid #e5e5e5;
-  cursor: pointer;
-  box-shadow: 0 4px 7px -4px #000;
-  transition: 0.3s;
-}
-.title-container .add-btn:hover {
-  background-color: var(--main-bg-color);
-}
-.title-container .add-btn button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
+  padding: 8px;
 }
 .books-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  max-height: calc(100vh - 493px);
+  overflow-y: auto;
 }
 .books-container .book {
   background-color: #ffffffc2;
@@ -210,25 +235,20 @@ main {
 .books-container .book-btn {
   margin-right: auto;
 }
-.books-container .book-btn > button {
-  cursor: pointer;
-  border-radius: 5px;
-  background: none;
-  border: 1px solid #e5e5e5;
-  background: #ffffffa6;
+.books-container .book-btn > a {
+  margin-right: auto;
+}
+.books-container .book-btn button {
   box-shadow: 0 4px 7px -6px #000;
-  transition: 0.3s;
+  border-bottom: none;
 }
-.books-container .book-btn > button:first-child:hover {
-  background-color: var(--main-bg-color);
-}
-
-.books-container .book-btn > button:last-child:hover {
-  background-color: var(--main-bg-color);
+.books-container .book-btn .delete-btn:hover {
+  background-color: var(--main-delete-color);
 }
 .books-container .book-date {
   color: #6d6d6d;
 }
+
 /* footer */
 .footer {
   display: flex;
@@ -241,7 +261,6 @@ main {
 }
 .tag {
   color: #000;
-  text-decoration: none;
 }
 .tag:hover {
   background: #000 -webkit-gradient(linear, 100% 0, 0 0, from(#acacac), color-stop(0.5, #ffffff), to(#acacac));

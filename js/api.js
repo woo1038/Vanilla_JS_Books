@@ -37,7 +37,5 @@ export async function deleteApi(url, token) {
       "Content-Type": "application/json;charset=utf-8",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    return res.json();
   });
 }
