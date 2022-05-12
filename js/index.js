@@ -131,6 +131,7 @@ const changeMoon = (moon, mode) => {
 };
 
 const moonMode = async () => {
+  const doby = document.body;
   const moon = document.querySelector(".moon-mode");
   const bright = ["🌝", "🌕", "🌖", "🌗", "🌘", "🌑", "🌚"];
   const dark = ["🌚", "🌑", "🌒", "🌓", "🌔", "🌕", "🌝"];
@@ -139,9 +140,11 @@ const moonMode = async () => {
     if (e.target.classList.contains("bright")) {
       changeMoon(moon, bright);
       moon.classList.remove("bright");
+      doby.classList.remove("dark");
     } else {
       changeMoon(moon, dark);
       moon.classList.add("bright");
+      doby.classList.add("dark");
     }
   });
 };

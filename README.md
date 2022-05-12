@@ -33,3 +33,6 @@ skill
 9. main 페이지 책 리스트 삭제 기능 구현
 10. nav top arrow 버튼 구현
 11. nav dark mode 클릭시 이모지 애니메이션 구현
+<!-- 22.05.11 -->
+12. dark 어두운 모드 디자인
+13. nav dark mode 클릭 기능 구현
