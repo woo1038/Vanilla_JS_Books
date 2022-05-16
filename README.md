@@ -39,3 +39,9 @@ skill
 <!-- 22.05.16 -->
 14. dark 모드시에 animation 문제 오류 수정
 15. login 페이지 디자인 수정
+16. login 페이지 유효성 검사 기능
+17. login 페이지 유효성 완료 시 디자인 추가
+18. login 페이지 input clear 기능
+19. login 페이지 dark 모드 추가
+20. css, js 각 기능별로 파일 정리
+21. dark 모드 페이지 이동시에도 유지 localStorage 기능 추가

@@ -1,5 +1,4 @@
 import { getApi, deleteApi } from "./api.js";
-import { goTop } from "./common.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -108,45 +107,23 @@ const render = async (books) => {
   });
 };
 
-/* common Btn */
+const goTop = (container, arrow) => {
+  container.addEventListener("scroll", () => {
+    container.scrollTop > 0
+      ? arrow.classList.add("active")
+      : arrow.classList.remove("active");
+  });
+
+  arrow.addEventListener("click", () => {
+    container.scrollTop = 0;
+  });
+};
+
 const arrowBtn = async () => {
   const arrow = document.querySelector(".top-scroll");
   const container = document.querySelector(".books-container");
 
   goTop(container, arrow);
-};
-
-const changeMoon = (moon, mode) => {
-  let stop = 0;
-
-  const loop = () => {
-    moon.innerHTML = mode[stop];
-
-    if (stop < mode.length - 1) {
-      setTimeout(loop, 50);
-      stop++;
-    }
-  };
-  loop();
-};
-
-const moonMode = async () => {
-  const doby = document.body;
-  const moon = document.querySelector(".moon-mode");
-  const bright = ["🌝", "🌕", "🌖", "🌗", "🌘", "🌑", "🌚"];
-  const dark = ["🌚", "🌑", "🌒", "🌓", "🌔", "🌕", "🌝"];
-
-  moon.addEventListener("click", (e) => {
-    if (e.target.classList.contains("bright")) {
-      changeMoon(moon, bright);
-      moon.classList.remove("bright");
-      doby.classList.remove("dark");
-    } else {
-      changeMoon(moon, dark);
-      moon.classList.add("bright");
-      doby.classList.add("dark");
-    }
-  });
 };
 
 const main = async () => {
@@ -160,8 +137,6 @@ const main = async () => {
   addBooks();
 
   arrowBtn();
-
-  moonMode();
 
   const books = await getBooks();
   render(books);

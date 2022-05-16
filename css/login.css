@@ -6,8 +6,8 @@
   height: 100vh;
 }
 .login-section {
-  max-width: 300px;
-  width: 300px;
+  max-width: 500px;
+  width: 500px;
   padding: 40px;
 }
 .login-section > div {
@@ -15,7 +15,7 @@
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
-  color: #172a10;
+  color: #000000;
 }
 .login-section > form {
   display: flex;
@@ -36,11 +36,11 @@
 .login-section > form div:nth-child(1) input {
   border-bottom: none;
 }
-.login-section > form input:focus-visible {
+.login-section > form input:focus {
   outline: none;
   box-shadow: 0 0 3px 2px var(--main-box-color);
   border: 1px solid var(--main-box-color);
-  z-index: 1;
+  z-index: 2;
 }
 .login-section > form .check {
   position: absolute;
@@ -54,12 +54,13 @@
   color: #d9d9d9;
 }
 .login-section > form .check::before {
-  content: "V";
+  content: "X";
   font-weight: bold;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 .login-section > form > button {
   margin-top: 10px;
@@ -69,15 +70,30 @@
 .login-section > form > button:hover {
   filter: brightness(1.1);
 }
-.login-section.active > form > button {
+.login-section > form > button.active {
   margin-top: 10px;
   background-color: var(--main-color);
   color: #000;
 }
-.login-section.active > form input {
-  background-color: #dfdfdf4d;
+.login-section .email-check.active input:valid,
+.login-section .password-check.active input:valid {
+  background-color: #aaffaa !important;
 }
-.login-section.active > form .check {
+.login-section .email-check.active .check,
+.login-section .password-check.active .check {
   border: 2px solid #000;
   color: #000;
+}
+
+/* dark */
+.dark .login-section > div {
+  color: #ffffff;
+}
+.dark .login-section > form > button {
+  background-color: var(--main-darkFooter-color);
+  color: #000;
+}
+.dark .login-section > form > button.active {
+  background-color: var(--main-arrow-color);
+  color: #fff;
 }

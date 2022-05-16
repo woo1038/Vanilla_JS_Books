@@ -13,28 +13,44 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/navigation.css" />
     <link rel="stylesheet" type="text/css" href="css/login.css" />
   </head>
 
   <body>
+    <header>
+      <nav class="navigation">
+        <div class="nav-items">
+          <div class="moon-mode">🌚</div>
+        </div>
+      </nav>
+    </header>
+
     <main class="login container" role="main">
       <section class="inner login-section active">
         <div>Hello Books.</div>
 
         <form id="login-form">
-          <div>
-            <input type="email" name="email" id="email" />
-            <label class="check email-check"></label>
+          <div class="email-check">
+            <input type="email" name="email" id="email" value="" required />
+            <label class="check"></label>
           </div>
-          <div>
-            <input type="password" name="password" id="password" />
-            <label class="check password-check"></label>
+          <div class="password-check">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value=""
+              required
+            />
+            <label class="check"></label>
           </div>
           <button class="btn login-btn" type="submit">로그인</button>
         </form>
       </section>
     </main>
 
+    <script type="module" src="js/dark.js"></script>
     <script type="module" src="./js/login.js"></script>
   </body>
 </html>
