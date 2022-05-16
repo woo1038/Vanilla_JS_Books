@@ -12,18 +12,25 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" type="text/css" href="css/login.css" />
   </head>
 
   <body>
-    <main class="login" role="main">
-      <section class="login-section">
+    <main class="login container" role="main">
+      <section class="inner login-section active">
         <div>Hello Books.</div>
 
         <form id="login-form">
-          <input type="email" name="email" id="email" />
-          <input type="password" name="password" id="password" />
-          <button class="login-btn" type="submit">login</button>
+          <div>
+            <input type="email" name="email" id="email" />
+            <label class="check email-check"></label>
+          </div>
+          <div>
+            <input type="password" name="password" id="password" />
+            <label class="check password-check"></label>
+          </div>
+          <button class="btn login-btn" type="submit">로그인</button>
         </form>
       </section>
     </main>

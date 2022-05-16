@@ -1,0 +1,99 @@
+:root {
+  --main-color: #ffffff;
+  --main-bg-color: #d9d9d9;
+  --main-arrow-color: #909090;
+  --main-delete-color: #ea9b9b;
+  --main-textShadow-color: rgb(179, 179, 179);
+  --main-textShadowRight-color: rgb(255, 208, 21);
+  --main-mainContainer-color: #ffffff7d;
+  --main-subContainer-color: #ffffffc2;
+  --main-header-color: #fffffff0;
+  --main-footer-color: #ffffff9e;
+  --main-box-color: rgb(107, 107, 107);
+  --main-black-color: #000;
+
+  /* dark */
+  --main-darkColor: #327258;
+  --main-darkText-color: rgb(255, 255, 255);
+  --main-darkBg-color: #6e6e6e;
+  --main-darkArrow-color: #909090;
+  --main-darkDelete-color: #8e1f1f;
+  --main-darkTextShadow-color: rgb(179, 179, 179);
+  --main-darkTextShadowRight-color: rgb(255, 208, 21);
+  --main-darkBtn-color: #515151db;
+  --main-darkMainContainer-color: #0000009c;
+  --main-darkSubContainer-color: #333333db;
+  --main-darkHeader-color: #0c0c0ccc;
+  --main-darkFooter-color: #0000009e;
+  --main-darkBox-color: rgb(0, 0, 0);
+  --main-darkWhite-color: rgb(255, 255, 255);
+}
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background-image: url("https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  transition: 0.3s;
+}
+a {
+  text-decoration: none;
+}
+
+/* common */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: 0.3s;
+}
+.inner {
+  padding: 50px 20px;
+  align-items: center;
+  margin: 20px 0;
+  background: var(--main-mainContainer-color);
+  border-radius: 5px;
+  background-blend-mode: overlay;
+  backdrop-filter: blur(33px);
+  box-shadow: 0 9px 8px -7px var(--main-black-color);
+  list-style: none;
+}
+.btn {
+  background: var(--main-subContainer-color);
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  box-shadow: 0 4px 7px -4px var(--main-black-color);
+  transition: 0.3s;
+}
+.btn:hover {
+  background-color: var(--main-bg-color);
+}
+
+/* dark */
+body.dark {
+  backdrop-filter: brightness(0.2);
+}
+.dark .container,
+.dark .container button,
+.dark .container a {
+  color: var(--main-darkText-color);
+}
+.dark .container .inner {
+  background-color: var(--main-darkMainContainer-color);
+}
+.dark .container span {
+  color: #e5e5e5;
+}
+.dark .btn {
+  background-color: var(--main-darkBtn-color);
+  border: 1px solid #7676766b;
+}
+.dark .btn:hover {
+  background-color: var(--main-darkBg-color);
+}

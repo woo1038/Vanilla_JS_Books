@@ -1,0 +1,59 @@
+/* footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--main-footer-color);
+  box-shadow: 0px 0px 7px 0px var(--main-box-color);
+  height: 70px;
+  width: 100%;
+  transition: 0.3s;
+}
+.tag {
+  color: var(--main-black-color);
+  transition: background-position 0.3s;
+}
+.tag:hover {
+  background: var(--main-black-color) -webkit-gradient(linear, 100% 0, 0 0, from(#acacac), color-stop(0.5, #ffffff), to(#acacac));
+
+  background-position: -4rem top; /*50px*/
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation-name: shimmer;
+  -webkit-animation-duration: 2.2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-background-size: 4rem 100%; /*50px*/
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -4rem top; /*50px*/
+  }
+
+  70% {
+    background-position: 12.5rem top; /*200px*/
+  }
+
+  100% {
+    background-position: 12.5rem top; /*200px*/
+  }
+}
+
+/* dark */
+.dark .footer {
+  background: var(--main-darkFooter-color);
+  box-shadow: 0px 0px 7px 0px var(--main-darkBox-color);
+}
+.dark .tag:hover {
+  background: var(--main-darkWhite-color) -webkit-gradient(linear, 100% 0, 0 0, from(#ff21219e), color-stop(0.5, #0e26ff9e), to(#45ff1b));
+
+  background-position: -4rem top; /*50px*/
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation-name: shimmer;
+  -webkit-animation-duration: 2.2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-background-size: 4rem 100%; /*50px*/
+}
