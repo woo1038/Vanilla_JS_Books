@@ -27,7 +27,7 @@ const loginCheck = () => {
   const loginBtn = document.querySelector(".login-btn");
 
   email.addEventListener("input", (e) => {
-    if (checkEmail(e.target.value)) {
+    if (checkEmail(e.target.value) || e.target.value.length > 0) {
       emailCheck.classList.add("active");
     } else {
       emailCheck.classList.remove("active");
@@ -78,23 +78,29 @@ const login = async (e) => {
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
 
-  const res = await postApi("https://api.marktube.tv/v1/me", email, password);
+  try {
+    const res = await postApi("https://api.marktube.tv/v1/me", email, password);
 
-  const { error } = res;
-  if (error) {
-    if (error === "USER_NOT_EXIST") {
-      alert("사용자가 존재하지 않습니다.");
-    } else if (error === "PASSWORD_NOT_MATCH") {
-      alert("비밀번호가 틀렸습니다.");
+    const { token } = res.data;
+    if (!token) {
+      return;
+    }
+
+    localStorage.setItem("token", token);
+    location = "/";
+  } catch (error) {
+    const data = error.response.data;
+
+    if (data) {
+      const state = data.error;
+
+      if (state === "USER_NOT_EXIST") {
+        alert("사용자가 존재하지 않습니다.");
+      } else if (state === "PASSWORD_NOT_MATCH") {
+        alert("비밀번호가 틀렸습니다.");
+      }
     }
   }
-
-  const { token } = res;
-  if (!token) {
-    return;
-  }
-  localStorage.setItem("token", token);
-  location = "/";
 };
 
 const loginButton = async () => {
@@ -102,10 +108,25 @@ const loginButton = async () => {
   form.addEventListener("submit", login);
 };
 
+const focus = async () => {
+  const foc = document.querySelectorAll(".focus");
+  foc.forEach((item) => {
+    item.addEventListener("focusin", (e) => {
+      e.target.parentElement.classList.add("focus");
+    });
+
+    item.addEventListener("focusout", (e) => {
+      e.target.parentElement.classList.remove("focus");
+    });
+  });
+};
+
 const main = async () => {
   loginButton();
 
   loginCheck();
+
+  focus();
 
   clear();
 };

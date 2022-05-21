@@ -45,6 +45,9 @@ body {
 a {
   text-decoration: none;
 }
+h5 {
+  margin: 0;
+}
 
 /* common */
 .container {
@@ -74,12 +77,87 @@ a {
 .btn:hover {
   background-color: var(--main-bg-color);
 }
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #000;
+}
+
+/* input */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.input-container {
+  position: relative;
+}
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #9a9a9a;
+  outline: none;
+}
+.input-container:not(:first-child) {
+  margin-top: -1px;
+}
+.input-container.focus {
+  z-index: 5;
+}
+.input-container.focus input {
+  border: 1px solid #000;
+}
+.input-container .check {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #d9d9d9;
+  color: #d9d9d9;
+}
+.input-container .check::before {
+  content: "X";
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.input-container.active input:valid,
+.input-container.active input:valid {
+  background-color: #aaffaa !important;
+}
+.input-container.active .check,
+.input-container.no-active .check,
+.input-container.active .check {
+  border: 2px solid #000;
+  color: #000;
+}
+.form-container .btn-container {
+  margin-top: 10px;
+  display: flex;
+}
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #9a9a9a;
+  border-radius: 3px;
+}
+.form-container button:hover {
+  filter: brightness(1.1);
+}
 
 /* dark */
 body.dark {
   backdrop-filter: brightness(0.2);
 }
 .dark .container,
+.dark .container .title,
 .dark .container button,
 .dark .container a {
   color: var(--main-darkText-color);
@@ -96,4 +174,17 @@ body.dark {
 }
 .dark .btn:hover {
   background-color: var(--main-darkBg-color);
+}
+
+/* dark-input */
+.dark .form-container {
+  color: #ffffff;
+}
+.dark .form-container button {
+  background-color: var(--main-darkFooter-color);
+  color: #000;
+}
+.dark .form-container button.active {
+  background-color: var(--main-arrow-color);
+  color: #fff;
 }

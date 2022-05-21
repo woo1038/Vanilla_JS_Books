@@ -10,90 +10,24 @@
   width: 500px;
   padding: 40px;
 }
-.login-section > div {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #000000;
-}
-.login-section > form {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-}
-.login-section > form > div {
-  position: relative;
-}
-.login-section > form input,
-.login-section > form > button {
-  width: 100%;
+
+#login-form input {
   max-width: 500px;
-  padding: 10px;
-  border: 1px solid #9a9a9a;
-  border-radius: 3px;
 }
-.login-section > form div:nth-child(1) input {
-  border-bottom: none;
-}
-.login-section > form input:focus {
-  outline: none;
-  box-shadow: 0 0 3px 2px var(--main-box-color);
-  border: 1px solid var(--main-box-color);
-  z-index: 2;
-}
-.login-section > form .check {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid #d9d9d9;
-  color: #d9d9d9;
-}
-.login-section > form .check::before {
-  content: "X";
-  font-weight: bold;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-}
-.login-section > form > button {
-  margin-top: 10px;
+#login-form button {
   background-color: var(--main--bg-color);
   color: #e5e5e5;
 }
-.login-section > form > button:hover {
-  filter: brightness(1.1);
-}
-.login-section > form > button.active {
-  margin-top: 10px;
+#login-form button.active {
   background-color: var(--main-color);
   color: #000;
 }
-.login-section .email-check.active input:valid,
-.login-section .password-check.active input:valid {
-  background-color: #aaffaa !important;
+#login-form div:nth-child(1) input {
+  border-radius: 3px 3px 0 0;
 }
-.login-section .email-check.active .check,
-.login-section .password-check.active .check {
-  border: 2px solid #000;
-  color: #000;
+#login-form div:nth-child(2) input {
+  border-radius: 0 0 3px 3px;
 }
-
-/* dark */
-.dark .login-section > div {
-  color: #ffffff;
-}
-.dark .login-section > form > button {
-  background-color: var(--main-darkFooter-color);
-  color: #000;
-}
-.dark .login-section > form > button.active {
-  background-color: var(--main-arrow-color);
-  color: #fff;
+#login-form button {
+  max-width: 500px;
 }

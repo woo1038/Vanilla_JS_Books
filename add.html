@@ -9,10 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+    <!-- link CSS -->
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/header.css" />
+    <link rel="stylesheet" type="text/css" href="css/navigation.css" />
+    <link rel="stylesheet" type="text/css" href="css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="css/add.css" />
   </head>
 
   <body>
@@ -32,31 +38,70 @@
       </nav>
       <nav class="navigation">
         <div class="nav-items">
-          <div class="dark-mode">🌑</div>
-          <div class="top-scroll">⇧</div>
+          <div class="moon-mode">🌚</div>
         </div>
       </nav>
     </header>
 
-    <main role="main">
-      <div class="container">
-        <ul class="main-container title-container">
-          <li class="title">Book list</li>
-          <li class="sub-title">This is a project made up of JavaScript.</li>
-          <li>
-            <form id="login-form">
-              <input type="title" name="title" id="title" />
-              <input type="message" name="message" id="message" />
-              <input type="author" name="author" id="author" />
-              <input type="url" name="url" id="url" />
-              <button class="btn" type="submit">login</button>
-            </form>
-          </li>
-          <li>
-            <button class="btn add-btn">책 추가하기</button>
-          </li>
-        </ul>
-      </div>
+    <main class="add container" role="main">
+      <section class="inner add-section active">
+        <div class="title">ADD BOOK.</div>
+
+        <form id="add-form" class="form-container">
+          <h5 class="sub-title">제목</h5>
+          <div class="title-check input-container">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="focus"
+              value=""
+              required
+            />
+            <label class="check"></label>
+          </div>
+          <h5 class="sub-title">설명</h5>
+          <div class="message-check input-container">
+            <input
+              type="text"
+              name="message"
+              id="message"
+              class="focus"
+              value=""
+              required
+            />
+            <label class="check"></label>
+          </div>
+          <h5 class="sub-title">작가</h5>
+          <div class="author-check input-container">
+            <input
+              type="text"
+              name="author"
+              id="author"
+              class="focus"
+              value=""
+              required
+            />
+            <label class="check"></label>
+          </div>
+          <h5 class="sub-title">URL 주소</h5>
+          <div class="url-check input-container">
+            <input
+              type="url"
+              name="url"
+              id="url"
+              class="focus"
+              value=""
+              required
+            />
+            <label class="check"></label>
+          </div>
+          <div class="btn-container">
+            <button class="btn back-btn">뒤로가기</button>
+            <button class="btn add-btn active" type="submit">추가하기</button>
+          </div>
+        </form>
+      </section>
     </main>
 
     <footer class="footer">
@@ -73,6 +118,8 @@
       </div>
     </footer>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="js/dark.js"></script>
     <script type="module" src="js/add.js"></script>
   </body>
 </html>

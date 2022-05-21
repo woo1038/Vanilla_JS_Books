@@ -1,0 +1,33 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 105px);
+}
+.add-section {
+  width: 100%;
+}
+#add-form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+#add-form h5 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+#add-form div input {
+  border-radius: 3px;
+}
+#add-form .btn-container button:first-child {
+  margin-right: 5px;
+}
+
+#add-form .add-btn {
+  background-color: var(--main--bg-color);
+  color: #e5e5e5;
+}
+#add-form .add-btn.active {
+  background-color: var(--main-color);
+  color: #000;
+}
