@@ -45,8 +45,9 @@ skill
 19. login 페이지 dark 모드 추가
 20. css, js 각 기능별로 파일 정리
 21. dark 모드 페이지 이동시에도 유지 localStorage 기능 추가
-<!-- 22.05.22 -->
+<!-- 22.05.21 -->
 22. login 페이지 로그인 폼 클리그 border 색상 변경 이벤트
 23. login.css 최적화(common.css 이용)
 24. add 페이지 추가
 25. add 페이지 디자인
+<!-- 22.05.22 -->

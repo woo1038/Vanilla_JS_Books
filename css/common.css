@@ -132,6 +132,9 @@ h5 {
 .input-container.active input:valid {
   background-color: #aaffaa !important;
 }
+.input-container.active input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #aaffaa inset;
+}
 .input-container.active .check,
 .input-container.no-active .check,
 .input-container.active .check {
@@ -139,7 +142,7 @@ h5 {
   color: #000;
 }
 .form-container .btn-container {
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
 }
 .form-container button {
@@ -149,7 +152,7 @@ h5 {
   border-radius: 3px;
 }
 .form-container button:hover {
-  filter: brightness(1.1);
+  background-color: #ebebeb !important;
 }
 
 /* dark */
@@ -173,7 +176,7 @@ body.dark {
   border: 1px solid #7676766b;
 }
 .dark .btn:hover {
-  background-color: var(--main-darkBg-color);
+  background-color: rgb(20 20 20) !important;
 }
 
 /* dark-input */
@@ -185,6 +188,7 @@ body.dark {
   color: #000;
 }
 .dark .form-container button.active {
-  background-color: var(--main-arrow-color);
+  background-color: var(--main-darkBox-color);
   color: #fff;
+  border: 1px solid #606060;
 }

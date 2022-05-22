@@ -104,7 +104,7 @@ const login = async (e) => {
 };
 
 const loginButton = async () => {
-  const form = document.querySelector("#login-form");
+  const form = document.querySelector(".login-form");
   form.addEventListener("submit", login);
 };
 

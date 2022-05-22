@@ -1,4 +1,5 @@
 import { getApi, deleteApi } from "./api.js";
+import { validURL } from "./common.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -38,9 +39,28 @@ const toggle = async () => {
   menu.classList.toggle("active");
 };
 
-const toggleBtn = async (flag) => {
+const toggleBtn = async () => {
   const toggleBtn = document.querySelector(".header-btn");
   toggleBtn.addEventListener("click", toggle);
+};
+
+const inputFullCheck = async () => {
+  const addBtn = document.querySelector(".add-btn");
+  const hello = document.querySelectorAll("input.focus");
+
+  let flag = true;
+  for (let i = 0; i < hello.length; i++) {
+    if (!hello[i].parentElement.classList.contains("active")) {
+      flag = false;
+      break;
+    }
+  }
+
+  if (flag) {
+    addBtn.classList.add("active");
+  } else {
+    addBtn.classList.remove("active");
+  }
 };
 
 const inputEvent = async (input, check) => {
@@ -50,6 +70,29 @@ const inputEvent = async (input, check) => {
     } else {
       check.classList.remove("active");
     }
+
+    inputFullCheck();
+  });
+};
+
+const inputURLEvent = async (input, check) => {
+  input.addEventListener("input", (e) => {
+    const value = e.target.value;
+
+    if (value.length > 0) {
+      check.classList.add("no-active");
+    } else {
+      check.classList.remove("no-active");
+    }
+
+    const URL = validURL(value);
+    if (URL) {
+      check.classList.add("active");
+    } else {
+      check.classList.remove("active");
+    }
+
+    inputFullCheck();
   });
 };
 
@@ -62,19 +105,22 @@ const inputCheck = () => {
   const authorCheck = document.querySelector(".author-check");
   const url = document.querySelector("#url");
   const urlCheck = document.querySelector(".url-check");
-  const addBtn = document.querySelector(".add-btn");
 
   inputEvent(title, titleCheck);
   inputEvent(message, messageCheck);
   inputEvent(author, authorCheck);
-  inputEvent(url, urlCheck);
+  inputURLEvent(url, urlCheck);
 };
 
 const clearInput = (name) => {
+  const addBtn = document.querySelector(".add-btn");
+
   name.addEventListener("click", (e) => {
     const form = e.target.parentElement;
     form.children[0].value = "";
     form.classList.remove("active");
+    form.classList.remove("no-active");
+    addBtn.classList.remove("active");
   });
 };
 
