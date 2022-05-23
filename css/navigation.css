@@ -1,8 +1,8 @@
 /* nav */
 .navigation {
   position: absolute;
-  right: 100px;
-  bottom: 90px;
+  right: 58px;
+  bottom: 110px;
 }
 .navigation .nav-items {
   display: flex;

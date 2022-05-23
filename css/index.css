@@ -23,7 +23,7 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-height: calc(100vh - 493px);
+  max-height: calc(100vh - 393px);
   overflow-y: auto;
 }
 .books-container .book {

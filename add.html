@@ -12,6 +12,12 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- link CSS -->
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/header.css" />
+    <link rel="stylesheet" type="text/css" href="css/navigation.css" />
+    <link rel="stylesheet" type="text/css" href="css/footer.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
 
@@ -32,26 +38,17 @@
       </nav>
       <nav class="navigation">
         <div class="nav-items">
-          <div class="dark-mode">🌑</div>
-          <div class="top-scroll">⇧</div>
+          <div class="moon-mode">🌚</div>
+          <div class="top-scroll">➤</div>
         </div>
       </nav>
     </header>
 
     <main role="main">
       <div class="container">
-        <ul class="main-container title-container">
+        <ul class="inner title-container">
           <li class="title">Book list</li>
           <li class="sub-title">This is a project made up of JavaScript.</li>
-          <li>
-            <form id="login-form">
-              <input type="title" name="title" id="title" />
-              <input type="message" name="message" id="message" />
-              <input type="author" name="author" id="author" />
-              <input type="url" name="url" id="url" />
-              <button class="btn" type="submit">login</button>
-            </form>
-          </li>
           <li>
             <button class="btn add-btn">책 추가하기</button>
           </li>
@@ -73,6 +70,7 @@
       </div>
     </footer>
 
+    <script type="module" src="js/dark.js"></script>
     <script type="module" src="js/add.js"></script>
   </body>
 </html>
