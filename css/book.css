@@ -1,0 +1,38 @@
+.item-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-header .title {
+  margin: 0;
+}
+.item-header .date {
+  position: absolute;
+  right: 0;
+}
+
+.item-detail {
+  background-color: var(--main-subContainer-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+.sub-title {
+  margin: 0;
+  margin-top: 10px;
+}
+.link {
+  color: blue;
+}
+
+.item-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.item-btn button {
+  width: 100%;
+  padding: 10px;
+}

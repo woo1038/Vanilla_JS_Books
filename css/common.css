@@ -20,7 +20,7 @@
   --main-darkDelete-color: #8e1f1f;
   --main-darkTextShadow-color: rgb(179, 179, 179);
   --main-darkTextShadowRight-color: rgb(255, 208, 21);
-  --main-darkBtn-color: #515151db;
+  --main-darkBtn-color: rgb(0, 0, 0);
   --main-darkMainContainer-color: #0000009c;
   --main-darkSubContainer-color: #333333db;
   --main-darkHeader-color: #0c0c0ccc;
@@ -44,6 +44,7 @@ body {
 }
 a {
   text-decoration: none;
+  color: #000;
 }
 h5 {
   margin: 0;
@@ -84,6 +85,9 @@ h5 {
   margin-bottom: 20px;
   text-align: center;
   color: #000;
+}
+.sub-title {
+  font-weight: 700;
 }
 
 /* input */
@@ -145,14 +149,29 @@ h5 {
 .form-container .btn-container {
   margin-top: 30px;
   display: flex;
+  gap: 5px;
 }
+.form-container input,
+.form-container a,
 .form-container button {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #9a9a9a;
-  border-radius: 3px;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 7px -4px var(--main-black-color);
+  transition: 0.3s;
 }
-.form-container button:hover {
+.btn-container > * {
+  width: 100%;
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #9a9a9a;
+  cursor: pointer;
+}
+.btn-container a {
+  background-color: var(--main-color);
+  color: #000;
+}
+.btn-container button:hover {
   background-color: #ebebeb !important;
 }
 
@@ -174,22 +193,30 @@ body.dark {
 }
 .dark .btn {
   background-color: var(--main-darkBtn-color);
-  border: 1px solid #7676766b;
+  border: 1px solid #606060;
 }
 .dark .btn:hover {
-  background-color: rgb(20 20 20) !important;
+  background-color: rgb(35, 35, 35) !important;
 }
 
 /* dark-input */
 .dark .form-container {
   color: #ffffff;
 }
-.dark .form-container button {
-  background-color: var(--main-darkFooter-color);
-  color: #000;
-}
-.dark .form-container button.active {
+.dark .btn-container a {
   background-color: var(--main-darkBox-color);
   color: #fff;
+}
+.dark .btn-container button {
+  background-color: var(--main-darkFooter-color);
+  color: #000;
   border: 1px solid #606060;
+}
+.dark .btn-container button.active {
+  background-color: var(--main-darkBox-color);
+  color: #fff;
+  border: 1px solid #9a9a9a;
+}
+.dark .btn-container > *:hover {
+  background-color: rgb(35, 35, 35) !important;
 }

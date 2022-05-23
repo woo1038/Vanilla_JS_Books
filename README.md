@@ -51,3 +51,14 @@ skill
 24. add 페이지 추가
 25. add 페이지 디자인
 <!-- 22.05.22 -->
+26. add 페이지 input check 기능 추가
+27. add 페이지 input active 활성화
+28. add 페이지 URL 주소 정규식 체크
+<!-- 22.05.23 -->
+29. login 페이지 email 정규식 체크
+30. login 페이지 form input 오류 시 로그인 버튼 비활성화
+31. 불필요한 코드 정리
+32. add 페이지 책 추가 api 사용하여 기능 활성화
+33. add 페이지 책
+34. book detail 페이지 추가
+35. book detail 페이지 디자인 틀 완성

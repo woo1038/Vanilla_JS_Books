@@ -1,4 +1,4 @@
-import { getApi, deleteApi } from "./api.js";
+import { getApi, deleteApi, postApi } from "./api.js";
 import { validURL } from "./common.js";
 
 const getToken = () => {
@@ -13,44 +13,13 @@ const login = async () => {
   }
 };
 
-const logout = async () => {
-  const token = getToken();
-  if (!token) {
-    location.assign("/login");
-  }
-
-  try {
-    deleteApi("https://api.marktube.tv/v1/me", token);
-  } catch (error) {
-    console.log("logout error", error);
-  } finally {
-    localStorage.clear();
-    location.assign("/login");
-  }
-};
-
-const logoutBtn = async () => {
-  const logoutBtn = document.querySelector(".logout-btn");
-  logoutBtn.addEventListener("click", logout);
-};
-
-const toggle = async () => {
-  let menu = document.querySelector(".header-container");
-  menu.classList.toggle("active");
-};
-
-const toggleBtn = async () => {
-  const toggleBtn = document.querySelector(".header-btn");
-  toggleBtn.addEventListener("click", toggle);
-};
-
 const inputFullCheck = async () => {
   const addBtn = document.querySelector(".add-btn");
-  const hello = document.querySelectorAll("input.focus");
+  const input = document.querySelectorAll("input.focus");
 
   let flag = true;
-  for (let i = 0; i < hello.length; i++) {
-    if (!hello[i].parentElement.classList.contains("active")) {
+  for (let i = 0; i < input.length; i++) {
+    if (!input[i].parentElement.classList.contains("active")) {
       flag = false;
       break;
     }
@@ -149,19 +118,54 @@ const focus = async () => {
   });
 };
 
-const main = async () => {
-  logoutBtn();
+const addBook = async (e) => {
+  const token = getToken();
+  const title = document.querySelector("#title").value;
+  const message = document.querySelector("#message").value;
+  const author = document.querySelector("#author").value;
+  const url = document.querySelector("#url").value;
+  console.log(title, message, author, url);
 
+  try {
+    const res = await postApi("https://api.marktube.tv/v1/book", token, {
+      title,
+      message,
+      author,
+      url,
+    });
+
+    location.assign("/");
+  } catch (error) {
+    console.log("save error", error);
+    alert("책 추가 실패");
+  }
+};
+
+const addButton = async () => {
+  const form = document.querySelector(".add-form");
+  const addButton = document.querySelector(".add-btn");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!addButton.classList.contains("active")) {
+      return;
+    }
+
+    addBook(e);
+  });
+};
+
+const main = async () => {
   login();
 
   inputCheck();
 
-  // header 메뉴
-  toggleBtn();
-
   focus();
 
   clear();
+
+  addButton();
 };
 
 document.addEventListener("DOMContentLoaded", main);

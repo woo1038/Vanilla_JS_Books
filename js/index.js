@@ -12,37 +12,6 @@ const login = async () => {
   }
 };
 
-const logout = async () => {
-  const token = getToken();
-  if (!token) {
-    location.assign("/login");
-  }
-
-  try {
-    deleteApi("https://api.marktube.tv/v1/me", token);
-  } catch (error) {
-    console.log("logout error", error);
-  } finally {
-    localStorage.clear();
-    location.assign("/login");
-  }
-};
-
-const logoutBtn = async () => {
-  const logoutBtn = document.querySelector(".logout-btn");
-  logoutBtn.addEventListener("click", logout);
-};
-
-const toggle = async () => {
-  let menu = document.querySelector(".header-container");
-  menu.classList.toggle("active");
-};
-
-const toggleBtn = async (flag) => {
-  const toggleBtn = document.querySelector(".header-btn");
-  toggleBtn.addEventListener("click", toggle);
-};
-
 const addBooks = async () => {
   const addBtn = document.querySelector(".add-btn");
   addBtn.addEventListener("click", () => {
@@ -127,12 +96,7 @@ const arrowBtn = async () => {
 };
 
 const main = async () => {
-  logoutBtn();
-
   login();
-
-  // header 메뉴
-  toggleBtn();
 
   addBooks();
 

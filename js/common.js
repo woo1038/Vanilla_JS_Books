@@ -10,3 +10,21 @@ export function validURL(str) {
   ); // fragment locator
   return !!pattern.test(str);
 }
+
+export function addClass(className, addClass) {
+  const element = document.querySelector(`${className}`);
+  element.classList.add(addClass);
+}
+
+export function addElement(element, addClass) {
+  element.classList.add(addClass);
+}
+
+export function removeClass(className, removeClass) {
+  const element = document.querySelector(`${className}`);
+  element.classList.remove(removeClass);
+}
+
+export function removeElement(element, removeClass) {
+  element.classList.remove(removeClass);
+}

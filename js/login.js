@@ -1,4 +1,5 @@
-import { postApi } from "./api.js";
+import { loginApi } from "./api.js";
+import { addClass, addElement, removeClass, removeElement } from "./common.js";
 
 const checkEmail = (str) => {
   const reg_email =
@@ -10,48 +11,56 @@ const checkEmail = (str) => {
   }
 };
 
-const checkPassword = (num) => {
-  const reg_password = 1;
-  if (num.length >= reg_password) {
-    return true;
+const inputFullCheck = async () => {
+  const input = document.querySelectorAll("input.focus");
+
+  let flag = true;
+  for (let i = 0; i < input.length; i++) {
+    if (!input[i].parentElement.classList.contains("active")) {
+      flag = false;
+      break;
+    }
+  }
+
+  if (flag) {
+    addClass(".login-btn", "active");
   } else {
-    return false;
+    removeClass(".login-btn", "active");
   }
 };
 
 const loginCheck = () => {
   const email = document.querySelector("#email");
-  const emailCheck = document.querySelector(".email-check");
   const password = document.querySelector("#password");
-  const passwordCheck = document.querySelector(".password-check");
-  const loginBtn = document.querySelector(".login-btn");
 
   email.addEventListener("input", (e) => {
-    if (checkEmail(e.target.value) || e.target.value.length > 0) {
-      emailCheck.classList.add("active");
+    const value = e.target.value;
+
+    if (value.length > 0) {
+      addClass(".email-check", "no-active");
     } else {
-      emailCheck.classList.remove("active");
+      removeClass(".email-check", "no-active");
     }
 
-    if (checkEmail(e.target.value) && checkPassword(password.value)) {
-      loginBtn.classList.add("active");
+    if (checkEmail(value)) {
+      addClass(".email-check", "active");
     } else {
-      loginBtn.classList.remove("active");
+      removeClass(".email-check", "active");
     }
+
+    inputFullCheck();
   });
 
   password.addEventListener("input", (e) => {
-    if (checkPassword(e.target.value)) {
-      passwordCheck.classList.add("active");
+    const value = e.target.value;
+
+    if (value.length > 0) {
+      addClass(".password-check", "active");
     } else {
-      passwordCheck.classList.remove("active");
+      removeClass(".password-check", "active");
     }
 
-    if (checkEmail(email.value) && checkPassword(e.target.value)) {
-      loginBtn.classList.add("active");
-    } else {
-      loginBtn.classList.remove("active");
-    }
+    inputFullCheck();
   });
 };
 
@@ -59,7 +68,9 @@ const clearInput = (name) => {
   name.addEventListener("click", (e) => {
     const form = e.target.parentElement;
     form.children[0].value = "";
-    form.classList.remove("active");
+    removeElement(form, "active");
+    removeElement(form, "no-active");
+    removeClass(".login-btn", "active");
   });
 };
 
@@ -72,14 +83,14 @@ const clear = () => {
 };
 
 const login = async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
 
   try {
-    const res = await postApi("https://api.marktube.tv/v1/me", email, password);
+    const res = await loginApi("https://api.marktube.tv/v1/me", {
+      email,
+      password,
+    });
 
     const { token } = res.data;
     if (!token) {
@@ -99,24 +110,35 @@ const login = async (e) => {
       } else if (state === "PASSWORD_NOT_MATCH") {
         alert("비밀번호가 틀렸습니다.");
       }
+      console.log(form);
     }
   }
 };
 
 const loginButton = async () => {
   const form = document.querySelector(".login-form");
-  form.addEventListener("submit", login);
+  const loginButton = document.querySelector(".login-btn");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!loginButton.classList.contains("active")) {
+      return;
+    }
+
+    login(e);
+  });
 };
 
 const focus = async () => {
-  const foc = document.querySelectorAll(".focus");
-  foc.forEach((item) => {
+  const focusAll = document.querySelectorAll(".focus");
+  focusAll.forEach((item) => {
     item.addEventListener("focusin", (e) => {
-      e.target.parentElement.classList.add("focus");
+      addElement(e.target.parentElement, "focus");
     });
 
     item.addEventListener("focusout", (e) => {
-      e.target.parentElement.classList.remove("focus");
+      removeElement(e.target.parentElement, "focus");
     });
   });
 };

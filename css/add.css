@@ -19,9 +19,6 @@ main {
 .add-form div input {
   border-radius: 3px;
 }
-.add-form .btn-container button:first-child {
-  margin-right: 5px;
-}
 
 .add-form .add-btn {
   background-color: var(--main--bg-color);
@@ -32,7 +29,7 @@ main {
   color: #000;
 }
 .dark .add-form .btn-container button:first-child {
-  background-color: var(--main-darkBox-color);
+  background-color: var(--main-darkBtn-color);
   color: #fff;
   border: 1px solid #606060;
 }

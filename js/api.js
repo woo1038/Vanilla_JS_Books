@@ -22,8 +22,20 @@ export async function deleteApi(url, token) {
   return result;
 }
 
-export async function postApi(url, email, password) {
-  const result = await axios.post(url, { email, password }).then((res) => res);
+export async function postApi(url, token, data) {
+  const result = await axios
+    .post(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res);
+
+  return result;
+}
+
+export async function loginApi(url, data) {
+  const result = await axios.post(url, data).then((res) => res);
 
   return result;
 }
