@@ -99,7 +99,7 @@ const render = async (books) => {
 
       try {
         await deleteBook(bookId);
-        location.reload();
+        await location.reload();
       } catch (error) {
         console.log(error);
       }

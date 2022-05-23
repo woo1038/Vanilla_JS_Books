@@ -7,11 +7,6 @@ main {
   flex-direction: column;
   justify-content: center;
 }
-.title-container .title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
 .title-container .sub-title {
   letter-spacing: 1px;
   margin-bottom: 5px;
@@ -23,7 +18,7 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-height: calc(100vh - 393px);
+  max-height: calc(100vh - 392px);
   overflow-y: auto;
 }
 .books-container .book {

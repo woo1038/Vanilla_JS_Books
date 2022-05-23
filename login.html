@@ -28,28 +28,39 @@
 
     <main class="login container" role="main">
       <section class="inner login-section active">
-        <div>Hello Books.</div>
+        <div class="title">Login.</div>
 
-        <form id="login-form">
-          <div class="email-check">
-            <input type="email" name="email" id="email" value="" required />
+        <formclass="login-form form-container">
+          <div class="email-check input-container">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="focus"
+              value=""
+              required
+            />
             <label class="check"></label>
           </div>
-          <div class="password-check">
+          <div class="password-check input-container">
             <input
               type="password"
               name="password"
+              class="focus"
               id="password"
               value=""
               required
             />
             <label class="check"></label>
           </div>
-          <button class="btn login-btn" type="submit">로그인</button>
-        </form>
+          <div class="btn-container">
+            <button class="btn login-btn" type="submit">로그인</button>
+          </div>
+        </formclass=>
       </section>
     </main>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="js/dark.js"></script>
     <script type="module" src="./js/login.js"></script>
   </body>
