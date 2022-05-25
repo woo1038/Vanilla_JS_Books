@@ -13,7 +13,7 @@
 }
 
 .item-detail {
-  background-color: var(--main-subContainer-color);
+  background-color: var(--bg-subContainer);
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 30px;

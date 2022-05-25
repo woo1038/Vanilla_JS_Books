@@ -15,12 +15,17 @@
   max-width: 500px;
 }
 .login-form button {
-  background-color: var(--main--bg-color);
-  color: #e5e5e5;
+  background-color: var(--bg-btn-inactive);
+  color: var(--text-reverse);
+  border: 1px solid var(--border-nav);
 }
 .login-form button.active {
-  background-color: var(--main-color);
-  color: #000;
+  background-color: var(--bg-btn-active);
+  color: var(--text-main);
+  border: 1px solid var(--border-nav-active);
+}
+.login-form button.active:hover {
+  background-color: var(--hover-btn);
 }
 .login-form div:nth-child(1) input {
   border-radius: 3px 3px 0 0;

@@ -10,6 +10,7 @@ main {
 .title-container .sub-title {
   letter-spacing: 1px;
   margin-bottom: 5px;
+  color: var(--text-main);
 }
 .title-container .add-btn {
   padding: 8px;
@@ -22,7 +23,8 @@ main {
   overflow-y: auto;
 }
 .books-container .book {
-  background-color: var(--main-subContainer-color);
+  background-color: var(--bg-subContainer);
+  color: var(--text-main);
   border-radius: 5px;
   padding: 10px;
 }
@@ -40,20 +42,12 @@ main {
   margin-right: auto;
 }
 .books-container .book-btn button {
-  box-shadow: 0 4px 7px -6px var(--main-black-color);
+  box-shadow: 0 4px 7px -6px var(--shadow-main);
   border-bottom: none;
 }
 .books-container .book-btn .delete-btn:hover {
-  background-color: var(--main-delete-color);
+  background-color: var(--bg-btn-delete);
 }
 .books-container .book-date {
-  color: #6d6d6d;
-}
-
-/* dark */
-.dark .books-container .book {
-  background: var(--main-darkSubContainer-color);
-}
-.dark .books-container .book-btn .delete-btn:hover {
-  background-color: var(--main-darkDelete-color) !important;
+  color: var(--text-cloudy);
 }

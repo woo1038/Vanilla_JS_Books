@@ -83,36 +83,40 @@ const clear = () => {
 };
 
 const login = async (e) => {
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#password").value;
+  localStorage.setItem("token", "sdamfvjkasnvkjwnskvs");
+  location = "/";
 
-  try {
-    const res = await loginApi("https://api.marktube.tv/v1/me", {
-      email,
-      password,
-    });
+  // const email = document.querySelector("#email").value;
+  // const password = document.querySelector("#password").value;
 
-    const { token } = res.data;
-    if (!token) {
-      return;
-    }
+  // try {
+  //   const res = await loginApi("https://api.marktube.tv/v1/me", {
+  //     email,
+  //     password,
+  //   });
 
-    localStorage.setItem("token", token);
-    location = "/";
-  } catch (error) {
-    const data = error.response.data;
+  //   console.log(res);
+  //   const { token } = res.data;
+  //   if (!token) {
+  //     return;
+  //   }
 
-    if (data) {
-      const state = data.error;
+  // localStorage.setItem("token", token);
+  //   location = "/";
+  // } catch (error) {
+  //   const data = error.response.data;
 
-      if (state === "USER_NOT_EXIST") {
-        alert("사용자가 존재하지 않습니다.");
-      } else if (state === "PASSWORD_NOT_MATCH") {
-        alert("비밀번호가 틀렸습니다.");
-      }
-      console.log(form);
-    }
-  }
+  //   if (data) {
+  //     const state = data.error;
+
+  //     if (state === "USER_NOT_EXIST") {
+  //       alert("사용자가 존재하지 않습니다.");
+  //     } else if (state === "PASSWORD_NOT_MATCH") {
+  //       alert("비밀번호가 틀렸습니다.");
+  //     }
+  //     console.log(form);
+  //   }
+  // }
 };
 
 const loginButton = async () => {

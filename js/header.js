@@ -15,7 +15,7 @@ const logout = async () => {
   } catch (error) {
     console.log("logout error", error);
   } finally {
-    localStorage.clear();
+    localStorage.removeItem("token");
     location.assign("/login");
   }
 };
@@ -30,7 +30,7 @@ const toggle = async () => {
   menu.classList.toggle("active");
 };
 
-const toggleBtn = async (flag) => {
+const toggleBtn = async () => {
   const toggleBtn = document.querySelector(".header-btn");
   toggleBtn.addEventListener("click", toggle);
 };

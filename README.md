@@ -62,3 +62,5 @@ skill
 33. add 페이지 책
 34. book detail 페이지 추가
 35. book detail 페이지 디자인 틀 완성
+<!-- 22.05.24 -->
+36. dark mode 최적화 완료

@@ -12,44 +12,35 @@ const changeMoon = (moon, mode) => {
   loop();
 };
 
-const moonMode = async () => {
-  const doby = document.body;
+const moonMode = async (color) => {
   const moon = document.querySelector(".moon-mode");
-  const bright = ["🌝", "🌕", "🌖", "🌗", "🌘", "🌑", "🌚"];
+  const light = ["🌝", "🌕", "🌖", "🌗", "🌘", "🌑", "🌚"];
   const dark = ["🌚", "🌑", "🌒", "🌓", "🌔", "🌕", "🌝"];
 
-  let theme = localStorage.getItem("theme");
-  if (theme === null) {
-    return localStorage.setItem("theme", "bright");
-  }
+  const isUserColorTheme = localStorage.getItem("theme");
+  isUserColorTheme ? isUserColorTheme : "light";
 
-  if (theme === "bright") {
-    changeMoon(moon, bright);
-    moon.classList.remove("bright");
-    doby.classList.remove("dark");
-    localStorage.setItem("theme", "bright");
-  } else if (theme === "dark") {
-    changeMoon(moon, dark);
-    moon.classList.add("bright");
-    doby.classList.add("dark");
+  if (isUserColorTheme === "dark") {
     localStorage.setItem("theme", "dark");
+    document.body.dataset.theme = "dark";
+    changeMoon(moon, dark);
+  } else {
+    localStorage.setItem("theme", "light");
+    document.body.dataset.theme = "light";
+    changeMoon(moon, light);
   }
 
-  moon.addEventListener("click", (e) => {
-    theme = localStorage.getItem("theme");
-    console.log(2, theme);
-    if (theme === "bright") {
-      console.log(4);
-      changeMoon(moon, dark);
-      moon.classList.add("bright");
-      doby.classList.add("dark");
+  moon.addEventListener("click", () => {
+    const body = document.body.dataset.theme;
+
+    if (body == "light") {
       localStorage.setItem("theme", "dark");
+      document.body.dataset.theme = "dark";
+      changeMoon(moon, dark);
     } else {
-      localStorage.setItem("theme", "bright");
-      changeMoon(moon, bright);
-      moon.classList.remove("bright");
-      doby.classList.remove("dark");
-      console.log(5);
+      localStorage.setItem("theme", "light");
+      document.body.dataset.theme = "light";
+      changeMoon(moon, light);
     }
   });
 };

@@ -21,15 +21,16 @@ main {
 }
 
 .add-form .add-btn {
-  background-color: var(--main--bg-color);
-  color: #e5e5e5;
+  background-color: var(--bg-btn-inactive);
+  color: var(--text-reverse);
+  border: 1px solid var(--border-nav);
 }
 .add-form .add-btn.active {
-  background-color: var(--main-color);
-  color: #000;
+  background-color: var(--bg-btn-active);
+  color: var(--text-main);
+  border: 1px solid var(--border-nav-active);
 }
-.dark .add-form .btn-container button:first-child {
-  background-color: var(--main-darkBtn-color);
-  color: #fff;
-  border: 1px solid #606060;
+.add-form .add-btn.active:hover,
+.add-form a:hover {
+  background-color: var(--hover-btn);
 }
