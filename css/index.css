@@ -2,27 +2,18 @@
 main {
   min-height: calc(100vh - 125px);
 }
-.title-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.title-container .sub-title {
+.sub-title {
   letter-spacing: 1px;
-  margin-bottom: 5px;
-  color: var(--text-main);
-}
-.title-container .add-btn {
-  padding: 8px;
 }
 .books-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-height: calc(100vh - 402px);
+  max-height: calc(100vh - 431px);
   overflow-y: auto;
 }
 .books-container .book {
+  position: relative;
   background-color: var(--bg-subContainer);
   color: var(--text-main);
   border-radius: 5px;
@@ -36,18 +27,13 @@ main {
   display: flex;
 }
 .books-container .book-btn {
-  margin-right: auto;
-}
-.books-container .book-btn > a {
-  margin-right: auto;
-}
-.books-container .book-btn button {
-  box-shadow: 0 4px 7px -6px var(--shadow-main);
-  border-bottom: none;
-}
-.books-container .book-btn .delete-btn:hover {
-  background-color: var(--bg-btn-delete);
+  display: flex;
+  width: 100%;
+  gap: 5px;
 }
 .books-container .book-date {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   color: var(--text-cloudy);
 }

@@ -58,6 +58,7 @@ body[data-theme="light"] {
   --text-main: #000;
   --text-reverse: rgba(255, 255, 255, 0.413);
   --text-cloudy: #6d6d6d;
+  --text-link: rgb(4 0 255);
 
   --ani-color1: #000;
   --ani-color2: #acacac;
@@ -87,7 +88,7 @@ body[data-theme="dark"] {
   --bg-subContainer: #333333db;
   --bg-btn-main: #0000009e;
   --bg-btn-delete: #572a2a;
-  --bg-btn-active: #161510;
+  --bg-btn-active: #0000009e;
   --bg-btn-inactive: #00000008;
   --bg-header: #0c0c0ccc;
   --bg-line: #fff;
@@ -113,6 +114,7 @@ body[data-theme="dark"] {
   --text-main: #fff;
   --text-reverse: rgba(0, 0, 0, 0.453);
   --text-cloudy: #6d6d6d;
+  --text-link: rgb(70 100 167);
 
   --ani-color1: #fff;
   --ani-color2: #e76060;
@@ -163,7 +165,7 @@ h5 {
   backdrop-filter: blur(33px);
   box-shadow: 0 9px 8px -7px var(--shadow-main);
   list-style: none;
-  transition: all 0.125s ease-in 0s;
+  transition: background 0.125s ease-in 0s;
 }
 .inner::-webkit-scrollbar {
   width: 10px;
@@ -174,27 +176,45 @@ h5 {
 .inner::-webkit-scrollbar-track {
   background-color: var(--scroll-back);
 }
-.btn {
-  background: var(--bg-btn-main);
-  border-radius: 5px;
-  border: 1px solid var(--border-btn);
+.btn,
+.btn-active {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
   cursor: pointer;
   color: var(--text-main);
+  border-radius: 5px;
+  transition: background 0.125s ease-in 0s;
   box-shadow: 0 4px 7px -4px var(--shadow-main);
-  transition: all 0.125s ease-in 0s;
+}
+.btn {
+  background-color: var(--bg-btn-main);
+  border: 1px solid var(--border-btn);
+}
+.btn-active {
+  border: 1px solid var(--border-nav);
 }
 .btn:hover {
   background-color: var(--hover-btn);
 }
+.btn-delete:hover {
+  background-color: var(--bg-btn-delete);
+}
+.title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .title {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: center;
   color: var(--text-main);
 }
 .sub-title {
   color: var(--text-main);
+  margin-bottom: 20px;
   font-weight: 700;
 }
 
@@ -264,21 +284,34 @@ h5 {
   border-radius: 5px;
   border: 1px solid var(--border-nav-active);
   box-shadow: 0 4px 7px -4px var(--shadow-main);
-  transition: all 0.125s ease-in 0s;
+  transition: background 0.125s ease-in 0s;
 }
-.btn-container > * {
-  width: 100%;
-  flex: 1;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid var(--border-nav);
-  border-radius: 5px;
-  box-shadow: 0 4px 7px -4px var(--shadow-main);
-  transition: all 0.125s ease-in 0s;
-  cursor: pointer;
+.link {
+  color: var(--text-link);
 }
-.btn-container a {
-  background-color: var(--bg-btn-active);
-  color: var(--text-main);
-  border: 1px solid var(--border-nav-active);
+.link:hover {
+  background: var(--text-link) -webkit-gradient(linear, 100% 0, 0 0, from(var(--ani-color2)), color-stop(0.5, var(--ani-color3)), to(var(--ani-color4)));
+  font-weight: bold;
+  background-position: -4rem top;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation-name: shimmer;
+  -webkit-animation-duration: 2.2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-background-size: 4rem 100%;
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -4rem top;
+  }
+
+  70% {
+    background-position: 12.5rem top;
+  }
+
+  100% {
+    background-position: 12.5rem top;
+  }
 }

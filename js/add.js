@@ -156,6 +156,15 @@ const addButton = async () => {
   });
 };
 
+const backHistory = () => {
+  window.history.back();
+};
+
+const backButton = () => {
+  const back = document.querySelector(".btn-back");
+  back.addEventListener("click", backHistory);
+};
+
 const main = async () => {
   login();
 
@@ -164,6 +173,8 @@ const main = async () => {
   focus();
 
   clear();
+
+  backButton();
 
   addButton();
 };

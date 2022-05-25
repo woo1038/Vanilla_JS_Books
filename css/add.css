@@ -28,7 +28,7 @@ main {
 .add-form .add-btn.active {
   background-color: var(--bg-btn-active);
   color: var(--text-main);
-  border: 1px solid var(--border-nav-active);
+  border: 1px solid var(--border-btn);
 }
 .add-form .add-btn.active:hover,
 .add-form a:hover {

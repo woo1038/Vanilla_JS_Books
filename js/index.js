@@ -45,8 +45,8 @@ const render = async (books) => {
     <div class="book-title">${item.title}</div>
     <div class="book-items">
       <span class="book-btn">
-        <a href="/book?=${item.bookId}">
-          <button class="btn view-btn">보기</button>
+        <a href="/book?=${item.bookId}" class="btn">
+          보기
         </a>
         <button class="btn delete-btn" data-book-id="${
           item.bookId
