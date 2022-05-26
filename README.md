@@ -68,3 +68,8 @@ skill
 37. 뒤로가기 버튼 활성화
 38. book detail 페이지 완료 및 버튼 활성화
 39. edit 페이지 생성
+<!-- 22.05.26 -->
+40. main 페이지 design remake
+41. main 페이지 book 이미지 3d book 디자인으로 변경
+42. main 페이지 book hover 시에 3d 책넘김 디자인
+43. main 페이지 book click 시에 metrix3d를 통한 애니메이션 구현

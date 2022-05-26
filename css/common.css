@@ -141,6 +141,9 @@ body {
 body[data-theme="dark"] {
   backdrop-filter: brightness(0.2);
 }
+ul {
+  list-style: none;
+}
 a {
   text-decoration: none;
   color: var(--text-main);
@@ -162,7 +165,7 @@ h5 {
   background: var(--bg-mainContainer);
   border-radius: 5px;
   background-blend-mode: overlay;
-  backdrop-filter: blur(33px);
+  /* backdrop-filter: blur(33px); */
   box-shadow: 0 9px 8px -7px var(--shadow-main);
   list-style: none;
   transition: background 0.125s ease-in 0s;
