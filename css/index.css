@@ -56,10 +56,11 @@ main {
   font-weight: 700;
   padding: 0.1em 0.8em;
   transform: rotate(1deg);
+  opacity: 1;
   box-shadow: none;
   background: none;
   border: none;
-  transition: color 0.3s;
+  transition: 0.3s;
 }
 .btn:hover {
   color: #16a085;
@@ -82,9 +83,22 @@ main {
   transform-style: preserve-3d;
   transition: 0.5s;
 }
+.book-event {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(var(--book-paper-bg), var(--book-paper-bg-row));
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
 /* 2. background & color  */
 .paperback_front {
   background-color: #000;
+  backface-visibility: hidden;
 }
 
 .paperback_front::after {
@@ -108,13 +122,12 @@ main {
 /* page */
 
 .ruled_paper > li {
-  background-color: #fff;
+  background-color: var(--book-paper);
   background-image: linear-gradient(
-    rgba(53, 53, 53, 0.154) 0.1em,
+    var(--book-paper-line) 0.1em,
     transparent 0.1em
   );
   background-size: 100% 0.6em;
-  border: 1px solid red;
   box-shadow: inset 0px -1px 2px rgba(50, 50, 50, 0.1),
     inset -1px 0px 1px rgba(150, 150, 150, 0.2);
   border-radius: 0px 10px 10px 0px;
@@ -240,41 +253,41 @@ main {
 	5. events
 */
 
-.book:hover,
+.book-box:hover .book,
 .book.active {
   left: 68%;
 }
-.book:hover > .paperback_front,
+.book-box:hover .book > .paperback_front,
 .book.active > .paperback_front {
   transform: rotateY(-125deg) translateZ(0px);
   z-index: 0;
 }
 
-.book:hover > .ruled_paper li:nth-child(1),
+.book-box:hover .book > .ruled_paper li:nth-child(1),
 .book.active > .ruled_paper li:nth-child(1) {
   transform: rotateY(-30deg);
   transition-duration: 1.5s;
 }
 
-.book:hover > .ruled_paper li:nth-child(2),
+.book-box:hover .book > .ruled_paper li:nth-child(2),
 .book.active > .ruled_paper li:nth-child(2) {
   transform: rotateY(-35deg);
   transition-duration: 1.8s;
 }
 
-.book:hover > .ruled_paper li:nth-child(3),
+.book-box:hover .book > .ruled_paper li:nth-child(3),
 .book.active > .ruled_paper li:nth-child(3) {
   transform: rotateY(-110deg);
   transition-duration: 2.2s;
 }
 
-.book:hover > .ruled_paper li:nth-child(4),
+.book-box:hover .book > .ruled_paper li:nth-child(4),
 .book.active > .ruled_paper li:nth-child(4) {
   transform: rotateY(-115deg);
   transition-duration: 1.8s;
 }
 
-.book:hover > .ruled_paper li:nth-child(5),
+.book-box:hover .book > .ruled_paper li:nth-child(5),
 .book.active > .ruled_paper li:nth-child(5) {
   transform: rotateY(-120deg);
   transition-duration: 1.2s;
@@ -282,42 +295,42 @@ main {
 
 /* active */
 
-.book:hover,
+.book-box:hover .book,
 .book.active {
   left: 68%;
 }
-.book:hover > .paperback_front,
+.book-box:hover .book > .paperback_front,
 .book.active > .paperback_front {
   transform: rotateY(-125deg) translateZ(0px);
   z-index: 0;
 }
 
-.book:hover > .ruled_paper li:nth-child(1),
+.book-box:hover .book > .ruled_paper li:nth-child(1),
 .book.active > .ruled_paper li:nth-child(1) {
   transform: rotateY(-30deg);
   transition-duration: 1.5s;
 }
 
-.book:hover > .ruled_paper li:nth-child(2),
+.book-box:hover .book > .ruled_paper li:nth-child(2),
 .book.active > .ruled_paper li:nth-child(2) {
   transform: rotateY(-35deg);
   transition-duration: 1.8s;
 }
 
-.book:hover > .ruled_paper li:nth-child(3),
+.book-box:hover .book > .ruled_paper li:nth-child(3),
 .book.active > .ruled_paper li:nth-child(3) {
   transform: rotateY(-110deg);
   transition-duration: 2.2s;
 }
 
-.book:hover > .ruled_paper li:nth-child(4),
+.book-box:hover .book > .ruled_paper li:nth-child(4),
 .book.active > .ruled_paper li:nth-child(4) {
   transform: rotateY(-115deg);
 
   transition-duration: 1.8s;
 }
 
-.book:hover > .ruled_paper li:nth-child(5),
+.book-box:hover .book > .ruled_paper li:nth-child(5),
 .book.active > .ruled_paper li:nth-child(5) {
   transform: rotateY(-120deg);
 

@@ -73,3 +73,6 @@ skill
 41. main 페이지 book 이미지 3d book 디자인으로 변경
 42. main 페이지 book hover 시에 3d 책넘김 디자인
 43. main 페이지 book click 시에 metrix3d를 통한 애니메이션 구현
+<!-- 22.05.27 -->
+44. main 페이지 api 오류로 인한 dummy data로 변경
+45. main 페이지 metrix3d 어색한 부분 수정

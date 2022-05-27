@@ -1,4 +1,5 @@
 import { getApi, deleteApi } from "./api.js";
+import { profile } from "./dummy.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -29,36 +30,51 @@ const deleteBook = async (bookId) => {
 };
 
 const getBooks = async () => {
-  const token = getToken();
-  return await getApi("https://api.marktube.tv/v1/book", token);
+  return profile.notice;
+  // const token = getToken();
+  // return await getApi("https://api.marktube.tv/v1/book", token);
 };
 
 const render = async (books) => {
   const container = document.querySelector(".books-container");
+  console.log(1, books);
   books.map((item) => {
-    const time = item.createdAt.slice(11, 13);
-    const timeLength = String(time % 12).length;
-
     container.insertAdjacentHTML(
       "beforeend",
-      `<li class="book">
-    <div class="book-title">${item.title}</div>
-    <div class="book-items">
-      <span class="book-btn">
-        <a href="/book?=${item.bookId}" class="btn">
-          보기
-        </a>
-        <button class="btn delete-btn" data-book-id="${
-          item.bookId
-        }">삭제</button>
-      </span>
-      <span class="book-date">${item.createdAt
-        .slice(0, 10)
-        .replaceAll("-", ".")} ${time > 12 ? "오후" : "오전"} ${
-        timeLength == 1 ? 0 : ""
-      }${time % 12}${item.createdAt.slice(13, 19)}</span>
-    </div>
-  </li>`
+      ` <li class="book-box">
+          <figure class="book">
+
+            <ul class="paperback_front">
+              <li>
+                <span class="ribbon">new</span>
+                <img src="${
+                  item.image == null ? "img/bg.jpg" : item.image
+                }" alt="" width="100%" height="100%" />
+              </li>
+              <li class="title">${item.image == null ? item.title : ""}</li>
+            </ul>
+
+            <ul class="ruled_paper">
+              <li class="back-paper"></li>
+              <li class="btn-container main-paper">
+                <button class="btn view-btn">보기</button>
+                <button class="btn btn-delete">삭제</button>
+              </li>
+              <li class="one-paper"></li>
+              <li class="two-paper"></li>
+              <li class="three-paper"></li>
+            </ul>
+
+            <ul class="paperback_back">
+              <li>
+                <img src="${
+                  item.image == null ? "img/bg.jpg" : item.image
+                }" alt="" width="100%" height="100%" />
+              </li>
+              <li></li>
+            </ul>
+          </figure>
+        </li>`
     );
   });
 
@@ -113,6 +129,10 @@ const delayfunction = (el, time, duration, matrix3d) => {
 };
 
 const viewAnimation = (child) => {
+  const bookItem = document.querySelector(".book-event");
+  bookItem.style.opacity = 1;
+  bookItem.style.visibility = "visible";
+
   const x = getOffset(child).left;
   const y = getOffset(child).top;
 
@@ -123,7 +143,6 @@ const viewAnimation = (child) => {
 
   child.closest(".book").style.display = "none";
 
-  const bookItem = document.querySelector(".book-event");
   bookItem.append(cloneBook);
 
   setTimeout(() => {
@@ -139,9 +158,15 @@ const viewAnimation = (child) => {
   const back = cloneBook.querySelector(".back-paper");
   const paper = cloneBook.querySelector(".main-paper");
   const btn = cloneBook.querySelector(".btn");
+  const view_btn = cloneBook.querySelector(".view-btn");
+  const delete_btn = cloneBook.querySelector(".btn-delete");
 
   setTimeout(() => {
     btn.style.transform = "rotateY(0deg)";
+    delete_btn.style.opacity = 0;
+    delete_btn.style.visibility = "hidden";
+    view_btn.style.opacity = 0;
+    view_btn.style.visibility = "hidden";
 
     /* front */
     paperback_front.style.transitionDuration = "0.3s";
@@ -176,18 +201,15 @@ const viewAnimation = (child) => {
   delayfunction(
     paper,
     500,
-    "0.4s",
-    `3.5, 1, 0, 0.005, 
-    1, 3.5, 0, 0.005, 
-    0, 0, 1, 0, 
-    -300, -300, 0, 1`
+    "0.2s",
+    `2, 1, 0, 0.001,      0, 1.5, 0, 0,      0, 0, 1, 0,      -134, -190, 0, 1`
   );
 
   delayfunction(
     paper,
-    900,
-    "0.2s",
-    `3.60909, 1.27273, 4, 0.008182, 
+    600,
+    "0.3s",
+    `3.60909, 1.27273, 4, 0.008182,
     0, 3.60909, 0, 0,
     0, 0, 1, 0,
     -254.545, -255.545, 0, 1`
@@ -195,11 +217,18 @@ const viewAnimation = (child) => {
 
   delayfunction(
     paper,
-    1100,
-    "0.5s",
-    `3.7, 0, 0, 0, 
-    0, 3.7, 0, 0, 
-    0, 0, 2, 0, 
+    750,
+    "0.2s",
+    `6, -0.5, 1, 0.00482, 0, 4.5, 0, 0, 0, 0, 1, 0, -254.545, -255.545, 0, 1`
+  );
+
+  delayfunction(
+    paper,
+    900,
+    "0.3s",
+    `3.7, 0, 0, 0,
+    0, 3.7, 0, 0,
+    0, 0, 2, 0,
     -249.545, -260.545, 0, 1`
   );
 };
@@ -207,6 +236,7 @@ const viewAnimation = (child) => {
 const viewButton = () => {
   const view = document.querySelectorAll(".view-btn");
   view.forEach((element) => {
+    console.log(1);
     element.addEventListener("click", () => viewAnimation(element));
   });
 };
@@ -218,10 +248,10 @@ const main = async () => {
 
   arrowBtn();
 
-  viewButton();
-
   const books = await getBooks();
   render(books);
+
+  viewButton();
 };
 
 document.addEventListener("DOMContentLoaded", main);
