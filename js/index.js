@@ -31,17 +31,18 @@ const deleteBook = async (bookId) => {
 
 const getBooks = async () => {
   return profile.notice;
-  // const token = getToken();
-  // return await getApi("https://api.marktube.tv/v1/book", token);
+};
+
+const getBooksPick = async (id) => {
+  return profile.notice.filter((item) => item.id === id)[0];
 };
 
 const render = async (books) => {
   const container = document.querySelector(".books-container");
-  console.log(1, books);
   books.map((item) => {
     container.insertAdjacentHTML(
       "beforeend",
-      ` <li class="book-box">
+      ` <li class="book-box" id=${item.id}>
           <figure class="book">
 
             <ul class="paperback_front">
@@ -56,9 +57,11 @@ const render = async (books) => {
 
             <ul class="ruled_paper">
               <li class="back-paper"></li>
-              <li class="btn-container main-paper">
-                <button class="btn view-btn">보기</button>
-                <button class="btn btn-delete">삭제</button>
+              <li class="main-paper">
+                <div class="btn-container">
+                  <button class="btn view-btn">보기</button>
+                  <button class="btn btn-delete">삭제</button>
+                </div>
               </li>
               <li class="one-paper"></li>
               <li class="two-paper"></li>
@@ -92,6 +95,41 @@ const render = async (books) => {
   });
 };
 
+const bookRender = async (element, item) => {
+  element.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="books-items">
+    <div class="books-item">
+      <div class="item-header">
+        <h3 class="title">${item.title}</h3>
+        <span class="date">${item.date}</span>
+      </div>
+      <div class="item-detail">
+        <div>
+          <h3 class="sub-title">책소개</h3>
+          <p class="description">
+            ${item.description}
+          </p>
+        </div>
+        <div>
+          <label class="sub-title">글쓴이 - </label>
+          <span>${item.author}</span>
+        </div>
+        <div>
+          <label class="sub-title">링크 - </label>
+          <a class="link" href="${item.link}" target="_blank">바로가기</a>
+        </div>
+      </div>
+      <div class="item-btn">
+        <button class="btn btn-back">뒤로가기</button>
+        <button class="btn btn-edit">수정하기</button>
+        <button class="btn btn-delete">삭제하기</button>
+      </div>
+    </div>
+  </div>`
+  );
+};
+
 const goTop = (container, arrow) => {
   container.addEventListener("scroll", () => {
     container.scrollTop > 0
@@ -119,24 +157,99 @@ function getOffset(el) {
   };
 }
 
-// ################
-const delayfunction = (el, time, duration, matrix3d) => {
-  setTimeout(() => {
-    el.style.transitionDuration = `${duration}`;
-    el.style.transform = `rotateY(0deg)
-    matrix3d(${matrix3d})`;
-  }, time);
+const orderAnimation = async (paper, width, height, zoomLevel) => {
+  const id = paper.closest(".book-event").id;
+  const books = await getBooksPick(id);
+  const originZoom = 1;
+
+  const obj = [
+    `${originZoom}, 0, 0, 0,
+  0, ${originZoom}, 0, 0,
+  0, 0, ${originZoom}, 0,
+  0, 0, 0, ${originZoom}`,
+
+    `${originZoom * 2}, 1, 0, 0.001,
+  0, ${originZoom * 1.5}, 0, 0,
+  0, 0, 1, 0,
+  -${(width * zoomLevel) / 4}, -${(height * zoomLevel) / 4 - height / 2}, 0, 1`,
+
+    `${zoomLevel}, 1.27273, 4, 0.008182,
+  0, ${zoomLevel}, 0, 0,
+  0, 0, 1, 0,
+  -${(width * zoomLevel) / 2}, -${(height * zoomLevel) / 2 - height / 2}, 0, 1`,
+
+    `${zoomLevel * 1.5}, -0.5, 1, 0.00482,
+  0, ${zoomLevel * 1.5}, 0, 0,
+  0, 0, 1, 0,
+  -${(width * zoomLevel) / 2}, -${(height * zoomLevel) / 2 - height / 2}, 0, 1`,
+
+    `${zoomLevel}, 0, 0, 0,
+  0, ${zoomLevel}, 0, 0,
+  0, 0, 2, 0,
+  -${(width * zoomLevel) / 2}, -${(height * zoomLevel) / 2 - height / 2}, 0, 1`,
+  ];
+
+  const orginWidth = paper.clientWidth * 3.7;
+  const orginHeight = paper.clientHeight * 3.7;
+  let level = 0;
+  const start = setInterval(() => {
+    level++;
+    paper.style.transform = `rotateY(0deg)
+        matrix3d(${obj[level]})`;
+
+    if (level == 5) {
+      paper.style.transition = "0s";
+      paper.style.width = `${orginWidth}px`;
+      paper.style.height = `${orginHeight}px`;
+      paper.style.transform = `rotateY(0deg) translateZ(10px)
+            matrix3d(${originZoom}, 0, 0, 0,
+            0, ${originZoom}, 0, 0,
+            0, 0, ${originZoom}, 0,
+            -${(width * zoomLevel) / 2}, -${
+        (height * zoomLevel) / 2 - height / 2
+      }, 0, ${originZoom})`;
+    }
+
+    if (level === 6) {
+      bookRender(paper, books);
+
+      const back = paper.querySelector(".btn-back");
+      back.addEventListener("click", () => {
+        paper.closest(".book-event").style.opacity = 0;
+        paper.closest(".book-event").style.visibility = "hidden";
+        paper.closest(".book-event").innerHTML = "";
+      });
+
+      clearInterval(start);
+    }
+  }, 150);
 };
 
 const viewAnimation = (child) => {
+  const id = child.closest(".book-box").id;
   const bookItem = document.querySelector(".book-event");
-  bookItem.style.opacity = 1;
-  bookItem.style.visibility = "visible";
+  bookItem.id = id;
+
+  const { width, height } = child.closest(".book").getBoundingClientRect();
 
   const x = getOffset(child).left;
   const y = getOffset(child).top;
+  const zoomLevel = 3.7;
 
   const cloneBook = child.closest(".book").cloneNode(true);
+  const paperback_front = cloneBook.querySelector(".paperback_front");
+  const paperback_back = cloneBook.querySelector(".paperback_back");
+  const one = cloneBook.querySelector(".one-paper");
+  const two = cloneBook.querySelector(".two-paper");
+  const three = cloneBook.querySelector(".three-paper");
+  const back = cloneBook.querySelector(".back-paper");
+  const paper = cloneBook.querySelector(".main-paper");
+  const btn = cloneBook.querySelector(".btn");
+  const btn_container = cloneBook.querySelector(".btn-container");
+
+  bookItem.style.opacity = 1;
+  bookItem.style.visibility = "visible";
+
   cloneBook.classList.add("active");
   cloneBook.style.top = `${y + 21}px`;
   cloneBook.style.left = `${x + 66}px`;
@@ -146,27 +259,14 @@ const viewAnimation = (child) => {
   bookItem.append(cloneBook);
 
   setTimeout(() => {
-    cloneBook.style.top = `45%`;
-    cloneBook.style.left = `55%`;
+    cloneBook.style.top = `50%`;
+    cloneBook.style.left = `calc(50% + 80px)`;
   }, 10);
-
-  const paperback_front = cloneBook.querySelector(".paperback_front");
-  const paperback_back = cloneBook.querySelector(".paperback_back");
-  const one = cloneBook.querySelector(".one-paper");
-  const two = cloneBook.querySelector(".two-paper");
-  const three = cloneBook.querySelector(".three-paper");
-  const back = cloneBook.querySelector(".back-paper");
-  const paper = cloneBook.querySelector(".main-paper");
-  const btn = cloneBook.querySelector(".btn");
-  const view_btn = cloneBook.querySelector(".view-btn");
-  const delete_btn = cloneBook.querySelector(".btn-delete");
 
   setTimeout(() => {
     btn.style.transform = "rotateY(0deg)";
-    delete_btn.style.opacity = 0;
-    delete_btn.style.visibility = "hidden";
-    view_btn.style.opacity = 0;
-    view_btn.style.visibility = "hidden";
+    btn_container.style.opacity = 0;
+    btn_container.style.visibility = "hidden";
 
     /* front */
     paperback_front.style.transitionDuration = "0.3s";
@@ -188,55 +288,21 @@ const viewAnimation = (child) => {
     back.style.transitionDuration = "0.3s";
     back.style.transform = "rotateY(0deg)";
     paper.style.zIndex = "5";
-    paper.style.transform = `rotateY(0deg)  translateZ(10px)
-    matrix3d(1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-      0, 0, 0, 1)`;
     paper.style.transformOrigin = "0px 0px 0px";
     paper.style.transition = "0.3s";
     paper.style.borderRadius = "0";
   }, 100);
 
-  delayfunction(
-    paper,
-    500,
-    "0.2s",
-    `2, 1, 0, 0.001,      0, 1.5, 0, 0,      0, 0, 1, 0,      -134, -190, 0, 1`
-  );
+  orderAnimation(paper, width, height, zoomLevel);
 
-  delayfunction(
-    paper,
-    600,
-    "0.3s",
-    `3.60909, 1.27273, 4, 0.008182,
-    0, 3.60909, 0, 0,
-    0, 0, 1, 0,
-    -254.545, -255.545, 0, 1`
-  );
-
-  delayfunction(
-    paper,
-    750,
-    "0.2s",
-    `6, -0.5, 1, 0.00482, 0, 4.5, 0, 0, 0, 0, 1, 0, -254.545, -255.545, 0, 1`
-  );
-
-  delayfunction(
-    paper,
-    900,
-    "0.3s",
-    `3.7, 0, 0, 0,
-    0, 3.7, 0, 0,
-    0, 0, 2, 0,
-    -249.545, -260.545, 0, 1`
-  );
+  setTimeout(() => {
+    child.closest(".book").style.display = "block";
+  }, 1000);
 };
 
 const viewButton = () => {
   const view = document.querySelectorAll(".view-btn");
   view.forEach((element) => {
-    console.log(1);
     element.addEventListener("click", () => viewAnimation(element));
   });
 };

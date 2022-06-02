@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap");
+
 /* main */
 main {
   min-height: calc(100vh - 125px);
@@ -49,8 +51,11 @@ main {
   width: 100%;
   height: 100%;
   gap: 10px;
+  transition: 0.3s;
+  transform-style: preserve-3d;
 }
-.btn {
+.books-container .btn,
+.books-items .btn {
   width: 80%;
   font-size: 1.2em;
   font-weight: 700;
@@ -62,12 +67,19 @@ main {
   border: none;
   transition: 0.3s;
 }
-.btn:hover {
-  color: #16a085;
+.books-container .btn:hover,
+.books-items .btn:hover {
+  color: var(--hover-btn);
   background: none;
 }
-.btn-delete:hover {
-  color: #f41313;
+.books-container .btn-back:hover,
+.books-items .btn-back:hover {
+  color: var(--hover-back);
+  background: none;
+}
+.books-container .btn-delete:hover,
+.books-items .btn-delete:hover {
+  color: var(--hover-delete);
   background: none;
 }
 
@@ -93,6 +105,7 @@ main {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
+  overflow: hidden;
 }
 
 /* 2. background & color  */
@@ -123,10 +136,6 @@ main {
 
 .ruled_paper > li {
   background-color: var(--book-paper);
-  background-image: linear-gradient(
-    var(--book-paper-line) 0.1em,
-    transparent 0.1em
-  );
   background-size: 100% 0.6em;
   box-shadow: inset 0px -1px 2px rgba(50, 50, 50, 0.1),
     inset -1px 0px 1px rgba(150, 150, 150, 0.2);
@@ -180,6 +189,7 @@ main {
   left: 0px;
   width: 100%;
   height: 100%;
+  margin: 0;
   transform-style: preserve-3d;
 }
 
@@ -206,6 +216,7 @@ main {
 .ruled_paper > li {
   position: absolute;
   transform-style: preserve-3d;
+  margin: 0;
 }
 
 .ruled_paper {
@@ -363,7 +374,7 @@ main {
 .title {
   padding: 20px;
   backface-visibility: hidden;
-  color: #000;
+  color: var(--text-main);
 }
 
 .ribbon::before,
@@ -385,4 +396,93 @@ main {
 .ribbon::after {
   right: -20px;
   border-right: 20px solid transparent;
+}
+
+/* paper open */
+.books-items {
+  padding: 10px 20px;
+  transition: 0.2s;
+}
+.item-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.item-header .title {
+  color: var(--text-main);
+  margin: 0;
+}
+.item-header .date {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: var(--text-cloudy);
+}
+
+.item-detail {
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+.item-detail > * {
+  color: var(--text-main);
+  margin: 10px 0;
+}
+.item-detail .sub-title {
+  margin: 0;
+}
+.item-detail .description {
+  max-height: 375px;
+  overflow: auto;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0;
+}
+
+.item-detail .description::-webkit-scrollbar {
+  width: 10px;
+}
+.item-detail .description::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-front);
+}
+.item-detail .description::-webkit-scrollbar-track {
+  background-color: var(--scroll-back);
+}
+
+.item-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transform: translateZ(2px);
+}
+.item-btn button.btn {
+  width: 100%;
+  padding: 10px;
+  transform: rotate(0deg);
+  transition: color ease-in 0.2s;
+}
+/* font */
+.item-header .title,
+.item-header .date,
+.item-detail .sub-title,
+.item-detail .description,
+.item-detail a,
+.item-detail span,
+.item-btn button.btn {
+  font-family: "Dongle", sans-serif;
+  font-size: 32px;
+}
+.item-header .title {
+  padding: 10px;
+  font-size: 48px;
+}
+.item-header .date {
+  font-size: 24px;
 }

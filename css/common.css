@@ -41,8 +41,11 @@ body[data-theme="light"] {
   --shadow-moon: rgb(97, 97, 97);
   --shadow-arrow: rgb(179, 179, 179);
 
-  --hover-btn: #6dabff;
+  --hover-btn-bg: rgb(112, 219, 89);
+  --hover-btn: #173ac5;
   --hover-nav: rgb(124, 124, 124);
+  --hover-back: #1fa313;
+  --hover-delete: #f41313;
 
   --text-main: #000;
   --text-reverse: rgba(255, 255, 255, 0.413);
@@ -87,8 +90,11 @@ body[data-theme="dark"] {
   --shadow-moon: rgb(255, 208, 21);
   --shadow-arrow: rgb(128, 128, 128);
 
-  --hover-btn: #11293c;
+  --hover-btn-bg: #286b2d;
+  --hover-btn: #356185;
   --hover-nav: rgb(166, 130, 0);
+  --hover-back: #0e8c03b6;
+  --hover-delete: #a42d2d;
 
   --text-main: #fff;
   --text-reverse: rgba(0, 0, 0, 0.453);
@@ -182,7 +188,7 @@ h5 {
   border: 1px solid var(--border-nav);
 }
 .btn:hover {
-  background-color: var(--hover-btn);
+  background-color: var(--hover-btn-bg);
 }
 .btn-delete:hover {
   background-color: var(--bg-btn-delete);
