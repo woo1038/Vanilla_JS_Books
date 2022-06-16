@@ -81,3 +81,12 @@ skill
 47. main 페이지 게시물 뒤로가기 기능 추가
 48. main 페이지 게시물 데이터 바인딩
 49. main 페이지 게시물 디자인 완료
+<!-- 22.06.16 -->
+50. main book 삭제 기능 추가
+51. main book detail 삭제 기능 추가
+52. main book detail 수정 시 input 활성화 및 디자인 추가
+53. main book detail 수정 완료시 input 비활성화 및 localStorage 변경
+54. main book detail 수정 완료시 input값 수정 및 날짜 변경(수정날짜로)
+55. main book detail link 기능 추가
+56. main book detail title 변경시 표지 title 동시 변경
+   

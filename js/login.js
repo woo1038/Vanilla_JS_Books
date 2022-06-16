@@ -1,5 +1,6 @@
 import { loginApi } from "./api.js";
 import { addClass, addElement, removeClass, removeElement } from "./common.js";
+import { profile } from "./dummy.js";
 
 const checkEmail = (str) => {
   const reg_email =
@@ -84,6 +85,7 @@ const clear = () => {
 
 const login = async (e) => {
   localStorage.setItem("token", "sdamfvjkasnvkjwnskvs");
+  localStorage.setItem("item", JSON.stringify(profile.notice));
   location = "/";
 
   // const email = document.querySelector("#email").value;

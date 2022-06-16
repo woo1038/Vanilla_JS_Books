@@ -430,6 +430,9 @@ main {
   color: var(--text-main);
   margin: 10px 0;
 }
+.item-detail input {
+  color: var(--text-main);
+}
 .item-detail .sub-title {
   margin: 0;
 }
@@ -472,8 +475,7 @@ main {
 .item-header .title,
 .item-header .date,
 .item-detail .sub-title,
-.item-detail .description,
-.item-detail a,
+.item-detail input,
 .item-detail span,
 .item-btn button.btn {
   font-family: "Dongle", sans-serif;
@@ -483,6 +485,49 @@ main {
   padding: 10px;
   font-size: 48px;
 }
+.item-detail .link {
+  display: block;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.item-detail .link_edit {
+  display: none;
+}
 .item-header .date {
   font-size: 24px;
+}
+.books-items input {
+  border: 1px solid transparent;
+}
+.books-items input:disabled {
+  background-color: var(--book-paper);
+}
+.flex-align {
+  display: flex;
+  align-items: center;
+}
+.edit.books-items input {
+  background-color: transparent;
+  transform: translateZ(11px);
+  border: 1px solid var(--border-input);
+}
+.edit .link {
+  display: none;
+}
+.edit .link_edit {
+  display: block;
+}
+
+/* button */
+.btn-edit {
+  display: block;
+}
+.btn-confirm {
+  display: none;
+}
+.edit .btn-edit {
+  display: none;
+}
+.edit .btn-confirm {
+  display: block;
 }

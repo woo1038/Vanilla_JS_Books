@@ -5,6 +5,10 @@ const getToken = () => {
   return localStorage.getItem("token");
 };
 
+const getBookList = () => {
+  return JSON.parse(localStorage.getItem("item"));
+};
+
 const login = async () => {
   const token = getToken();
   if (!token) {
@@ -20,21 +24,42 @@ const addBooks = async () => {
   });
 };
 
-const deleteBook = async (bookId) => {
-  const token = getToken();
-  if (!token) {
-    return location.assign("/login");
-  }
-
-  deleteApi(`https://api.marktube.tv/v1/book/${bookId}`, token);
-};
-
-const getBooks = async () => {
-  return profile.notice;
-};
-
 const getBooksPick = async (id) => {
-  return profile.notice.filter((item) => item.id === id)[0];
+  const notice = await getBookList();
+  console.log(notice);
+  return notice.filter((item) => item.id === id)[0];
+};
+
+const removeButton = async (e, ani) => {
+  if (!ani) {
+    const book = e.target.closest(".book-box");
+    const id = book.id;
+
+    const list = getBookList();
+    const removelist = list.filter((item) => item.id !== id);
+    localStorage.setItem("item", JSON.stringify(removelist));
+
+    book.remove();
+  } else {
+    const event = e.target.closest(".book-event");
+    const id = event.id;
+    event.removeAttribute("id");
+    event.removeAttribute("style");
+    event.innerHTML = "";
+
+    const container = document.querySelector(".books-container");
+    const books = container.querySelectorAll("li.book-box");
+    const book = Array.from(books);
+    book.map((item) => {
+      if (item.id === id) {
+        item.remove();
+      }
+    });
+
+    const list = getBookList();
+    const removelist = list.filter((item) => item.id !== id);
+    localStorage.setItem("item", JSON.stringify(removelist));
+  }
 };
 
 const render = async (books) => {
@@ -81,16 +106,9 @@ const render = async (books) => {
     );
   });
 
-  document.querySelectorAll(".delete-btn").forEach((element) => {
+  document.querySelectorAll(".btn-delete").forEach((element) => {
     element.addEventListener("click", async (e) => {
-      const bookId = e.target.dataset.bookId;
-
-      try {
-        await deleteBook(bookId);
-        await location.reload();
-      } catch (error) {
-        console.log(error);
-      }
+      removeButton(e, false);
     });
   });
 };
@@ -101,28 +119,28 @@ const bookRender = async (element, item) => {
     `<div class="books-items">
     <div class="books-item">
       <div class="item-header">
-        <h3 class="title">${item.title}</h3>
+        <input value="${item.title}" class="title" disabled></input>
         <span class="date">${item.date}</span>
       </div>
       <div class="item-detail">
         <div>
           <h3 class="sub-title">책소개</h3>
-          <p class="description">
-            ${item.description}
-          </p>
+          <input value="${item.description}" class="description" disabled></input>
         </div>
         <div>
           <label class="sub-title">글쓴이 - </label>
-          <span>${item.author}</span>
+          <input value="${item.author}" disabled></input>
         </div>
-        <div>
+        <div class="flex-align">
           <label class="sub-title">링크 - </label>
-          <a class="link" href="${item.link}" target="_blank">바로가기</a>
+          <span class="link">바로가기</span>
+          <input class="link_edit" value="${item.link}" disabled></input>
         </div>
       </div>
       <div class="item-btn">
         <button class="btn btn-back">뒤로가기</button>
         <button class="btn btn-edit">수정하기</button>
+        <button class="btn btn-confirm">수정완료</button>
         <button class="btn btn-delete">삭제하기</button>
       </div>
     </div>
@@ -220,6 +238,63 @@ const orderAnimation = async (paper, width, height, zoomLevel) => {
         paper.closest(".book-event").innerHTML = "";
       });
 
+      const edit = paper.querySelector(".btn-edit");
+      edit.addEventListener("click", (e) => {
+        const parent = e.target.closest(".books-items");
+        parent.classList.add("edit");
+        const child = Array.from(parent.querySelectorAll("input"));
+        child.map((item) => (item.disabled = false));
+      });
+
+      const confirm = paper.querySelector(".btn-confirm");
+      confirm.addEventListener("click", (e) => {
+        const list = getBookList();
+        const id = e.target.closest(".book-event").id;
+
+        const parent = e.target.closest(".books-items");
+        parent.classList.remove("edit");
+        const child = Array.from(parent.querySelectorAll("input"));
+        child.map((item) => (item.disabled = true));
+
+        child.map((item) => (item.value = item.value));
+        const editChild = child.map((item) => item.value);
+        console.log(editChild);
+
+        const happyNewYear = new Date();
+        const year = happyNewYear.getFullYear();
+        const month = happyNewYear.getMonth() + 1;
+        const date = happyNewYear.getDate();
+
+        for (let i of list) {
+          if (i.id === id) {
+            i.title = editChild[0];
+            i.description = editChild[1];
+            i.author = editChild[2];
+            i.link = editChild[3];
+
+            i.date = `${year}.${month >= 10 ? month : "0" + month}.${
+              date >= 10 ? date : "0" + date
+            }`;
+          }
+        }
+
+        const front = document.querySelector(`.book-box[id="${id}"]`);
+        let title = front.querySelector(".title");
+        title.innerHTML = editChild[0];
+        localStorage.setItem("item", JSON.stringify(list));
+      });
+
+      const link = paper.querySelector(".link");
+      link.addEventListener("click", () => {
+        const page = paper.querySelector(".link_edit").value;
+        window.open(`${page}`, "_blank");
+      });
+
+      const removebtn = paper.querySelector(".btn-delete");
+      removebtn.addEventListener("click", (e) => {
+        removeButton(e, true);
+      });
+
       clearInterval(start);
     }
   }, 150);
@@ -314,7 +389,7 @@ const main = async () => {
 
   arrowBtn();
 
-  const books = await getBooks();
+  const books = await getBookList();
   render(books);
 
   viewButton();
