@@ -1,8 +1,12 @@
 import { getApi, deleteApi, postApi } from "./api.js";
-import { validURL } from "./common.js";
+import { getNowDate, validURL } from "./common.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
+};
+
+const getBookList = () => {
+  return JSON.parse(localStorage.getItem("item"));
 };
 
 const login = async () => {
@@ -18,7 +22,7 @@ const inputFullCheck = async () => {
   const input = document.querySelectorAll("input.focus");
 
   let flag = true;
-  for (let i = 0; i < input.length; i++) {
+  for (let i = 0; i < input.length - 1; i++) {
     if (!input[i].parentElement.classList.contains("active")) {
       flag = false;
       break;
@@ -74,11 +78,14 @@ const inputCheck = () => {
   const authorCheck = document.querySelector(".author-check");
   const url = document.querySelector("#url");
   const urlCheck = document.querySelector(".url-check");
+  const image = document.querySelector("#image");
+  const imageCheck = document.querySelector(".image-check");
 
   inputEvent(title, titleCheck);
   inputEvent(message, messageCheck);
   inputEvent(author, authorCheck);
   inputURLEvent(url, urlCheck);
+  inputEvent(image, imageCheck);
 };
 
 const clearInput = (name) => {
@@ -98,11 +105,13 @@ const clear = () => {
   const message = document.querySelector(".message-check .check");
   const author = document.querySelector(".author-check .check");
   const url = document.querySelector(".url-check .check");
+  const image = document.querySelector(".image-check .check");
 
   clearInput(title);
   clearInput(message);
   clearInput(author);
   clearInput(url);
+  clearInput(image);
 };
 
 const focus = async () => {
@@ -120,20 +129,35 @@ const focus = async () => {
 
 const addBook = async (e) => {
   const token = getToken();
+  const list = getBookList();
+  const time = getNowDate();
+
   const title = document.querySelector("#title").value;
   const message = document.querySelector("#message").value;
   const author = document.querySelector("#author").value;
   const url = document.querySelector("#url").value;
-  console.log(title, message, author, url);
+  const image = document.querySelector("#image").value;
 
+  if (image.value === "") image = null;
+
+  const first_id = list[list.length - 1];
+  const local_id = localStorage.getItem("id");
+  let now_id = local_id === null ? String(Number(first_id.id) + 1) : local_id;
+  localStorage.setItem("id", String(Number(now_id) + 1));
+  let obj = {
+    id: now_id,
+    title,
+    description: message,
+    date: time,
+    author,
+    link: url,
+    image,
+  };
+
+  console.log(list);
   try {
-    const res = await postApi("https://api.marktube.tv/v1/book", token, {
-      title,
-      message,
-      author,
-      url,
-    });
-
+    list.push(obj);
+    localStorage.setItem("item", JSON.stringify(list));
     location.assign("/");
   } catch (error) {
     console.log("save error", error);

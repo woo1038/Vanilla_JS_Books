@@ -89,4 +89,9 @@ skill
 54. main book detail 수정 완료시 input값 수정 및 날짜 변경(수정날짜로)
 55. main book detail link 기능 추가
 56. main book detail title 변경시 표지 title 동시 변경
-   
+<!-- 22.06.17 -->
+57. main page 이미지가 있는 책에도 title 나타는 현상 수정
+58. 시간에 따른 커버 new ribbon 추가
+59. add page image input 추가
+60. add 기능 추가
+61. add 시에 image변화 확인 완료

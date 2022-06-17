@@ -6,7 +6,7 @@ export const profile = {
       id: "1001",
       title: "혼자서 본 영화",
       description: "이러이러한 내용입니다",
-      date: "2022.08.22",
+      date: "2022.05.17",
       author: "전희진",
       link: "https://www.google.com",
       image:
@@ -16,7 +16,7 @@ export const profile = {
       id: "1002",
       title: "배고픔의 미학",
       description: "이러이러한 내용입니다",
-      date: "2022.08.23",
+      date: "2022.05.18",
       author: "홍길동",
       link: "https://www.google.com",
       image:
@@ -26,7 +26,7 @@ export const profile = {
       id: "1003",
       title: "배고픔의 미학",
       description: "이러이러한 내용입니다",
-      date: "2022.08.24",
+      date: "2022.05.19",
       author: "홍길동",
       link: "https://www.google.com",
       image:
@@ -36,7 +36,7 @@ export const profile = {
       id: "1004",
       title: "배고픔의 미학",
       description: "이러이러한 내용입니다",
-      date: "2022.08.25",
+      date: "2022.05.20",
       author: "홍길동",
       link: "https://www.google.com",
       image:
@@ -46,7 +46,7 @@ export const profile = {
       id: "1005",
       title: "배고픔의 미학",
       description: "이러이러한 내용입니다",
-      date: "2022.08.26",
+      date: "2022.05.21",
       author: "홍길동",
       link: "https://www.google.com",
       image: null,

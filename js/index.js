@@ -1,5 +1,4 @@
-import { getApi, deleteApi } from "./api.js";
-import { profile } from "./dummy.js";
+import { getNowDate } from "./common.js";
 
 const getToken = () => {
   return localStorage.getItem("token");
@@ -7,6 +6,20 @@ const getToken = () => {
 
 const getBookList = () => {
   return JSON.parse(localStorage.getItem("item"));
+};
+
+const getDateDiffer = (get) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+
+  const value = get.split(".");
+  const start = new Date(value[0], value[1], value[2]);
+  const end = new Date(year, month, day);
+  const time = end.getTime() - start.getTime();
+  const result = time / (1000 * 60 * 60 * 24);
+  return result;
 };
 
 const login = async () => {
@@ -65,15 +78,20 @@ const removeButton = async (e, ani) => {
 const render = async (books) => {
   const container = document.querySelector(".books-container");
   books.map((item) => {
+    const time = getDateDiffer(item.date);
     container.insertAdjacentHTML(
       "beforeend",
       ` <li class="book-box" id=${item.id}>
           <figure class="book">
-
+ 
             <ul class="paperback_front">
               <li>
-                <span class="ribbon">new</span>
-                <img src="${
+                ${
+                  time < 14
+                    ? `<span class="ribbon">new</span>`
+                    : `<span></span>`
+                }
+                <img class="img" src="${
                   item.image == null ? "img/bg.jpg" : item.image
                 }" alt="" width="100%" height="100%" />
               </li>
@@ -95,7 +113,7 @@ const render = async (books) => {
 
             <ul class="paperback_back">
               <li>
-                <img src="${
+                <img class="img2" src="${
                   item.image == null ? "img/bg.jpg" : item.image
                 }" alt="" width="100%" height="100%" />
               </li>
@@ -125,7 +143,9 @@ const bookRender = async (element, item) => {
       <div class="item-detail">
         <div>
           <h3 class="sub-title">책소개</h3>
-          <input value="${item.description}" class="description" disabled></input>
+          <input value="${
+            item.description
+          }" class="description" disabled></input>
         </div>
         <div>
           <label class="sub-title">글쓴이 - </label>
@@ -135,6 +155,12 @@ const bookRender = async (element, item) => {
           <label class="sub-title">링크 - </label>
           <span class="link">바로가기</span>
           <input class="link_edit" value="${item.link}" disabled></input>
+        </div>
+        <div class="picture">
+          <label class="sub-title">표지 - </label>
+          <input value="${
+            item.image === null ? "" : item.image
+          }" placeholder="사진 주소만 가능"></input>
         </div>
       </div>
       <div class="item-btn">
@@ -174,6 +200,68 @@ function getOffset(el) {
     top: rect.top + window.scrollY,
   };
 }
+
+const editEvent = (paper) => {
+  const edit = paper.querySelector(".btn-edit");
+  edit.addEventListener("click", (e) => {
+    const parent = e.target.closest(".books-items");
+    parent.classList.add("edit");
+    const child = Array.from(parent.querySelectorAll("input"));
+    child.map((item) => (item.disabled = false));
+  });
+
+  const confirm = paper.querySelector(".btn-confirm");
+  confirm.addEventListener("click", (e) => {
+    const list = getBookList();
+    const id = e.target.closest(".book-event").id;
+
+    const parent = e.target.closest(".books-items");
+    parent.classList.remove("edit");
+    const child = Array.from(parent.querySelectorAll("input"));
+    child.map((item) => (item.disabled = true));
+
+    child.map((item) => (item.value = item.value));
+    const editChild = child.map((item) => item.value);
+
+    const time = getNowDate();
+
+    const front = document.querySelector(`.book-box[id="${id}"]`);
+    const title = front.querySelector(".title");
+
+    const ribbon_box = front.querySelector(".paperback_front li");
+    const ribbon = ribbon_box.querySelector("span");
+    if (!ribbon.classList.contains("ribbon")) {
+      ribbon.classList.add("ribbon");
+      ribbon.innerHTML = "new";
+    }
+
+    const image = front.querySelector(".img");
+    const image2 = front.querySelector(".img2");
+    for (let book of list) {
+      if (book.id === id) {
+        book.title = editChild[0];
+        book.description = editChild[1];
+        book.author = editChild[2];
+        book.link = editChild[3];
+        book.date = time;
+        book.image = editChild[4];
+
+        if (!book.image) title.innerHTML = editChild[0];
+
+        if (editChild[4] !== "") {
+          image.src = editChild[4];
+          image2.src = editChild[4];
+          title.innerHTML = "";
+        } else {
+          image.src = "img/bg.jpg";
+          image2.src = "img/bg.jpg";
+        }
+      }
+    }
+
+    localStorage.setItem("item", JSON.stringify(list));
+  });
+};
 
 const orderAnimation = async (paper, width, height, zoomLevel) => {
   const id = paper.closest(".book-event").id;
@@ -238,57 +326,13 @@ const orderAnimation = async (paper, width, height, zoomLevel) => {
         paper.closest(".book-event").innerHTML = "";
       });
 
-      const edit = paper.querySelector(".btn-edit");
-      edit.addEventListener("click", (e) => {
-        const parent = e.target.closest(".books-items");
-        parent.classList.add("edit");
-        const child = Array.from(parent.querySelectorAll("input"));
-        child.map((item) => (item.disabled = false));
-      });
-
-      const confirm = paper.querySelector(".btn-confirm");
-      confirm.addEventListener("click", (e) => {
-        const list = getBookList();
-        const id = e.target.closest(".book-event").id;
-
-        const parent = e.target.closest(".books-items");
-        parent.classList.remove("edit");
-        const child = Array.from(parent.querySelectorAll("input"));
-        child.map((item) => (item.disabled = true));
-
-        child.map((item) => (item.value = item.value));
-        const editChild = child.map((item) => item.value);
-        console.log(editChild);
-
-        const happyNewYear = new Date();
-        const year = happyNewYear.getFullYear();
-        const month = happyNewYear.getMonth() + 1;
-        const date = happyNewYear.getDate();
-
-        for (let i of list) {
-          if (i.id === id) {
-            i.title = editChild[0];
-            i.description = editChild[1];
-            i.author = editChild[2];
-            i.link = editChild[3];
-
-            i.date = `${year}.${month >= 10 ? month : "0" + month}.${
-              date >= 10 ? date : "0" + date
-            }`;
-          }
-        }
-
-        const front = document.querySelector(`.book-box[id="${id}"]`);
-        let title = front.querySelector(".title");
-        title.innerHTML = editChild[0];
-        localStorage.setItem("item", JSON.stringify(list));
-      });
-
       const link = paper.querySelector(".link");
       link.addEventListener("click", () => {
         const page = paper.querySelector(".link_edit").value;
         window.open(`${page}`, "_blank");
       });
+
+      editEvent(paper);
 
       const removebtn = paper.querySelector(".btn-delete");
       removebtn.addEventListener("click", (e) => {

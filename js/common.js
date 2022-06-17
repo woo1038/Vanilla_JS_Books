@@ -28,3 +28,14 @@ export function removeClass(className, removeClass) {
 export function removeElement(element, removeClass) {
   element.classList.remove(removeClass);
 }
+
+export function getNowDate() {
+  const happyNewYear = new Date();
+  const year = happyNewYear.getFullYear();
+  const month = happyNewYear.getMonth() + 1;
+  const date = happyNewYear.getDate();
+  const time = `${year}.${month >= 10 ? month : "0" + month}.${
+    date >= 10 ? date : "0" + date
+  }`;
+  return time;
+}
