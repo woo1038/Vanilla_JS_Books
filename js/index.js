@@ -79,8 +79,9 @@ const render = async (books) => {
   const container = document.querySelector(".books-container");
   books.map((item) => {
     const time = getDateDiffer(item.date);
+    const update_time = item.update && getDateDiffer(item.update);
     container.insertAdjacentHTML(
-      "beforeend",
+      "afterbegin",
       ` <li class="book-box" id=${item.id}>
           <figure class="book">
  
@@ -89,13 +90,15 @@ const render = async (books) => {
                 ${
                   time < 14
                     ? `<span class="ribbon">new</span>`
+                    : update_time < 14 && update_time !== null
+                    ? `<span class="ribbon">update</span>`
                     : `<span></span>`
                 }
                 <img class="img" src="${
-                  item.image == null ? "img/bg.jpg" : item.image
+                  item.image === null ? "img/bg.jpg" : item.image
                 }" alt="" width="100%" height="100%" />
               </li>
-              <li class="title">${item.image == null ? item.title : ""}</li>
+              <li class="title">${item.image === null ? item.title : ""}</li>
             </ul>
 
             <ul class="ruled_paper">
@@ -113,8 +116,8 @@ const render = async (books) => {
 
             <ul class="paperback_back">
               <li>
-                <img class="img2" src="${
-                  item.image == null ? "img/bg.jpg" : item.image
+                <img class="back-img" src="${
+                  item.image === null ? "img/bg.jpg" : item.image
                 }" alt="" width="100%" height="100%" />
               </li>
               <li></li>
@@ -232,29 +235,28 @@ const editEvent = (paper) => {
     const ribbon = ribbon_box.querySelector("span");
     if (!ribbon.classList.contains("ribbon")) {
       ribbon.classList.add("ribbon");
-      ribbon.innerHTML = "new";
+      ribbon.innerHTML = "update";
     }
 
     const image = front.querySelector(".img");
-    const image2 = front.querySelector(".img2");
+    const back_image = front.querySelector(".back-img");
     for (let book of list) {
       if (book.id === id) {
         book.title = editChild[0];
         book.description = editChild[1];
         book.author = editChild[2];
         book.link = editChild[3];
-        book.date = time;
-        book.image = editChild[4];
+        book.update = time;
+        book.image = editChild[4] === "" ? null : editChild[4];
 
         if (!book.image) title.innerHTML = editChild[0];
 
+        console.log(book.image);
+
         if (editChild[4] !== "") {
           image.src = editChild[4];
-          image2.src = editChild[4];
+          back_image.src = editChild[4];
           title.innerHTML = "";
-        } else {
-          image.src = "img/bg.jpg";
-          image2.src = "img/bg.jpg";
         }
       }
     }

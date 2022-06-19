@@ -95,3 +95,9 @@ skill
 59. add page image input 추가
 60. add 기능 추가
 61. add 시에 image변화 확인 완료
+<!-- 22.06.17 -->
+62. main 수정 시 new -> update로 변경
+63. dummy data update날짜 추가
+64. 수정 시 이미지 깨지는 오류 수정
+65. main 생성된 순서대로 정렬
+66. image없이 생성 시 없는 기본 이미지로 변경

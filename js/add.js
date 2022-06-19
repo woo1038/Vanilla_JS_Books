@@ -96,7 +96,7 @@ const clearInput = (name) => {
     form.children[0].value = "";
     form.classList.remove("active");
     form.classList.remove("no-active");
-    addBtn.classList.remove("active");
+    if (!e.target.dataset.image) addBtn.classList.remove("active");
   });
 };
 
@@ -128,7 +128,6 @@ const focus = async () => {
 };
 
 const addBook = async (e) => {
-  const token = getToken();
   const list = getBookList();
   const time = getNowDate();
 
@@ -136,25 +135,27 @@ const addBook = async (e) => {
   const message = document.querySelector("#message").value;
   const author = document.querySelector("#author").value;
   const url = document.querySelector("#url").value;
-  const image = document.querySelector("#image").value;
+  let image = document.querySelector("#image").value;
 
-  if (image.value === "") image = null;
+  if (image.value === undefined) image = null;
 
   const first_id = list[list.length - 1];
   const local_id = localStorage.getItem("id");
   let now_id = local_id === null ? String(Number(first_id.id) + 1) : local_id;
   localStorage.setItem("id", String(Number(now_id) + 1));
+
+  console.log(image);
   let obj = {
     id: now_id,
     title,
     description: message,
     date: time,
+    update: null,
     author,
     link: url,
     image,
   };
 
-  console.log(list);
   try {
     list.push(obj);
     localStorage.setItem("item", JSON.stringify(list));

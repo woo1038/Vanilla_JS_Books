@@ -2,6 +2,10 @@ import { loginApi } from "./api.js";
 import { addClass, addElement, removeClass, removeElement } from "./common.js";
 import { profile } from "./dummy.js";
 
+const getBookList = () => {
+  return JSON.parse(localStorage.getItem("item"));
+};
+
 const checkEmail = (str) => {
   const reg_email =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -85,7 +89,11 @@ const clear = () => {
 
 const login = async (e) => {
   localStorage.setItem("token", "sdamfvjkasnvkjwnskvs");
-  localStorage.setItem("item", JSON.stringify(profile.notice));
+  const list = getBookList();
+  if (!list) {
+    localStorage.setItem("item", JSON.stringify(profile.notice));
+  }
+
   location = "/";
 
   // const email = document.querySelector("#email").value;
